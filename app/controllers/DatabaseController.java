@@ -52,7 +52,7 @@ public class DatabaseController extends Controller {
         }
 
 
-        System.out.println(sql);
+        // System.out.println(sql);
         SqlUpdate insert = Ebean.createSqlUpdate(sql);
         insert.execute();
 
