@@ -1,5 +1,6 @@
 logs
 target
+conf/sample.sql
 /.idea
 /.idea_modules
 /.classpath
