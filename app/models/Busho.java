@@ -1,9 +1,12 @@
 package models;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Model;
 import com.avaje.ebean.annotation.CreatedTimestamp;
@@ -24,4 +27,12 @@ public class Busho extends Model {
     // 検索用
     public static Find<Integer,Busho> find = new Find<Integer,Busho>(){};
 
+
+    // ユーザーリスト
+    @OneToMany
+    public List<User> users = new ArrayList<>();
+
+    // カードリスト
+    @OneToMany
+    public List<Card> cards = new ArrayList<>();
 }

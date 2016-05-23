@@ -1,9 +1,12 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Model;
 import com.avaje.ebean.annotation.CreatedTimestamp;
@@ -28,4 +31,8 @@ public class Kengen extends Model {
     // 検索用
     public static Find<Integer,Kengen> find = new Find<Integer,Kengen>(){};
 
+
+    // ユーザーリスト
+    @OneToMany
+    public List<User> users = new ArrayList<>();
 }

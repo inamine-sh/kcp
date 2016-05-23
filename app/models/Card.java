@@ -1,9 +1,13 @@
 package models;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 import com.avaje.ebean.Model;
@@ -14,29 +18,34 @@ import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
 
 @Entity
-public class kanshaCard extends Model {
+public class Card extends Model {
 
     @Id
     public Integer id;
 
     // 送り元ID
+    @ManyToOne
     @Required
-    public Integer fromId;
+    public User from;
 
     // 送り先ID
+    @ManyToOne
     @Required
-    public Integer toId;
+    public User to;
 
     // 送り元部署ID
+    @ManyToOne
     @Required
-    public Integer fromBushoId;
+    public Busho fromBusho;
 
     // 送り先部署ID
+    @ManyToOne
     @Required
-    public Integer toBushoId;
+    public Busho toBusho;
 
     // カテゴリID
-    public Integer categoryId;
+    @ManyToOne
+    public Category category;
 
     // タイトル
     @Required
@@ -72,6 +81,11 @@ public class kanshaCard extends Model {
 
 
     // 検索用
-    public static Find<Integer,kanshaCard> find = new Find<Integer,kanshaCard>(){};
+    public static Find<Integer,Card> find = new Find<Integer,Card>(){};
+
+
+    // コメントリスト
+    @OneToMany
+    public List<Comment> comments = new ArrayList<>();
 
 }

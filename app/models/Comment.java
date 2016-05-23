@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import com.avaje.ebean.Model;
@@ -18,12 +19,14 @@ public class Comment extends Model {
     public Integer id;
 
     // 感謝カードID
+    @ManyToOne
     @Required
-    public Integer kanshaId;
+    public Card card;
 
     // 送り元ID
+    @ManyToOne
     @Required
-    public Integer fromId;
+    public User from;
 
     // 本文
     public String message;
