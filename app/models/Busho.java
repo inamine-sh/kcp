@@ -32,7 +32,11 @@ public class Busho extends Model {
     @OneToMany
     public List<User> users = new ArrayList<>();
 
-    // カードリスト
-    @OneToMany
-    public List<Card> cards = new ArrayList<>();
+    // カードリストfrom
+    @OneToMany(mappedBy="fromBusho")
+    public List<Card> fromCards = new ArrayList<>();
+
+    // カードリストto
+    @OneToMany(mappedBy="toBusho")
+    public List<Card> toCards = new ArrayList<>();
 }

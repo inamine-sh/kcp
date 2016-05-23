@@ -69,9 +69,13 @@ public class User extends Model {
     public static Find<Integer,User> find = new Find<Integer,User>(){};
 
 
-    // カードリスト
-    @OneToMany
-    public List<Card> cards = new ArrayList<>();
+    // カードリストfrom
+    @OneToMany(mappedBy="fromBusho")
+    public List<Card> fromCards = new ArrayList<>();
+
+    // カードリストto
+    @OneToMany(mappedBy="toBusho")
+    public List<Card> toCards = new ArrayList<>();
 
     // コメントリスト
     @OneToMany
