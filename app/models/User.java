@@ -80,4 +80,20 @@ public class User extends Model {
     // コメントリスト
     @OneToMany
     public List<Comment> comments = new ArrayList<>();
+
+    public String getName() {
+        if (middle.isEmpty()) {
+            return last + " " + first;
+        } else {
+            return last + " " + middle + " " + first;
+        }
+    }
+
+    public String getYomiName() {
+        if (middle.isEmpty()) {
+            return yomiLast + " " + yomiFirst;
+        } else {
+            return yomiLast + " " + yomiMiddle + " " + yomiFirst;
+        }
+    }
 }
