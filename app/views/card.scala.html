@@ -1,0 +1,20 @@
+@(card: Card, toUser: User, fromUser: User, toBusho: Busho, fromBusho: Busho)
+
+@template("Card Detail") {
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+    @card.title
+    </div>
+    <div class="panel-body">
+    @card.message
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">...</li>
+        <li class="list-group-item">...</li>
+        <li class="list-group-item">...</li>
+    </ul>
+</div>
+
+}
+
