@@ -1,6 +1,7 @@
 logs
 target
 conf/sample.sql
+conf/evolutions
 /.idea
 /.idea_modules
 /.classpath
