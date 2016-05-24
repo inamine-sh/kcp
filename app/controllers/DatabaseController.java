@@ -41,7 +41,7 @@ public class DatabaseController extends Controller {
 
             String str;
             while((str = br.readLine()) != null){
-                System.out.println(str);
+                // System.out.println(str);
                 sql += str;
             }
 
