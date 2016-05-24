@@ -1,20 +1,69 @@
-@(card: Card, toUser: User, fromUser: User, toBusho: Busho, fromBusho: Busho)
+@(card: Card, comments: List[Comment])
 
 @template("Card Detail") {
 
 <div class="panel panel-default">
     <div class="panel-heading">
-    @card.title
+        <div class="panel-title">@card.title</div>
     </div>
     <div class="panel-body">
-    @card.message
+
+
+        <div class="well well-sm"">
+            From: @card.fromUser.getName
+            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            To: @card.toUser.getName
+        </div>
+
+        <div class="well well-lg">
+            @card.message
+            ああああああああああああああああああああ<br>
+            あああああああああああああああああああ<br>
+            あああああああああああああ<br>
+            ああああああああああああああああああああああああ
+
+        </div>
+
+        <div class="pull-right text-muted">
+            <small>感謝日: @card.kanshaDate</small><br>
+            <small>投稿日: @card.postDate</small><br>
+            <small>更新日: @card.updateDate</small><br>
+        </div>
     </div>
+
+
     <ul class="list-group">
-        <li class="list-group-item">...</li>
-        <li class="list-group-item">...</li>
-        <li class="list-group-item">...</li>
+        @for(comment <- comments) {
+            <li class="list-group-item clearfix">
+
+                <div class="col-md-2 text-right">
+                    @comment.fromUser.getName
+                </div>
+                <div class="col-md-8">
+                    @comment.message
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-danger control-label">削除</button>
+                </div>
+            </li>
+        }
+        <li class="list-group-item clearfix">
+	        @helper.form(routes.CardController.newComment()) {
+	            <div class="col-md-2 text-right">
+	                名前
+	            </div>
+	            <div class="col-md-8">
+	                <input type="text" name="message" class="form-control" placeholder="コメント">
+	            </div>
+	            <div class="col-md-1">
+	                <button type="submit" class="btn btn-primary control-label">返信</button>
+	            </div>
+	        }
+        </li>
+
     </ul>
+
+
 </div>
 
 }
-

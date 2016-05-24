@@ -1,7 +1,10 @@
 package controllers;
 
+import java.util.List;
+
 import models.Busho;
 import models.Card;
+import models.Comment;
 import models.User;
 import play.mvc.*;
 
@@ -27,14 +30,12 @@ public class CardController extends Controller {
 
     public Result view(int id) {
         Card card1 = Card.find.byId(id);
+        List<Comment> comments = card1.comments;
 
-        User toUser = card1.to;
-        User fromUser = card1.from;
-
-        Busho toBusho = card1.toBusho;
-        Busho fromBusho = card1.fromBusho;
-
-        return ok(card.render(card1, toUser, fromUser, toBusho, fromBusho));
+        return ok(card.render(card1, comments));
     }
 
+    public Result newComment() {
+        return TODO;
+    }
 }
