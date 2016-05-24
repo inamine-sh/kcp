@@ -26,12 +26,12 @@ public class Card extends Model {
     // 送り元ID
     @ManyToOne
     @Required
-    public User from;
+    public User fromUser;
 
     // 送り先ID
     @ManyToOne
     @Required
-    public User to;
+    public User toUser;
 
     // 送り元部署ID
     @ManyToOne
