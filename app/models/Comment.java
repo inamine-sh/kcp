@@ -26,7 +26,7 @@ public class Comment extends Model {
     // 送り元ID
     @ManyToOne
     @Required
-    public User from;
+    public User fromUser;
 
     // 本文
     public String message;
