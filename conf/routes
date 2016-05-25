@@ -16,6 +16,9 @@ GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
 GET     /createdb                   controllers.DatabaseController.index
 
+GET     /user                       controllers.UserController.my
+GET     /user/:userId               controllers.UserController.index(userId: String)
+
 GET     /login                      controllers.LoginController.index
 POST    /login                      controllers.LoginController.login
 
