@@ -55,6 +55,6 @@ public class CardController extends Controller {
 
         comment.insert();
 
-        return view(id);
+        return redirect(routes.CardController.view(id));
     }
 }
