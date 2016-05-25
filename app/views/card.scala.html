@@ -30,20 +30,24 @@
     <ul class="list-group">
         @for(comment <- comments) {
             <li class="list-group-item clearfix">
-
-                <div class="col-md-2 text-right">
-                    @comment.fromUser.getName
-                </div>
-                <div class="col-md-8">
-                    @comment.message
-                </div>
-                @if(comment.fromUser == user || 2 <= user.kengen.rank){
-                    <div class="col-md-1">
-                    @helper.form(routes.CardController.deleteComment(card.id, comment.id)) {
-                        <button type="submit" class="btn btn-danger control-label" onclick='return confirm("削除しますか？");'>削除</button>
-                    }
+                <div class="clearfix">
+                    <div class="col-md-2 text-right">
+                        @comment.fromUser.getName
                     </div>
-                }
+                    <div class="col-md-8">
+                        @comment.message
+                    </div>
+                    @if(comment.fromUser == user || 2 <= user.kengen.rank){
+                        <div class="col-md-1">
+                        @helper.form(routes.CardController.deleteComment(card.id, comment.id)) {
+                            <button type="submit" class="btn btn-danger control-label" onclick='return confirm("削除しますか？");'>削除</button>
+                        }
+                        </div>
+                    }
+                </div>
+                <div class="text-right text-muted">
+                    <small>@comment.postDate</small>
+                </div>
             </li>
         }
         <li class="list-group-item clearfix">
