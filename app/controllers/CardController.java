@@ -1,11 +1,17 @@
 package controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
 
 import models.Busho;
 import models.Card;
 import models.Comment;
 import models.User;
+import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.*;
 
 import views.html.*;
@@ -15,7 +21,8 @@ import views.html.*;
  * to the application's home page.
  */
 public class CardController extends Controller {
-
+    @Inject
+    private FormFactory formFactory;
     /**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -29,13 +36,25 @@ public class CardController extends Controller {
     }
 
     public Result view(int id) {
+        User user = User.find.where().eq("id", session("user_id")).findUnique();
+
         Card card1 = Card.find.byId(id);
         List<Comment> comments = card1.comments;
 
-        return ok(card.render(card1, comments));
+        return ok(card.render(user, card1, comments));
     }
 
-    public Result newComment() {
-        return TODO;
+    public Result newComment(int id) {
+
+        Map<String, String[]> params = request().body().asFormUrlEncoded();
+
+        Comment comment = new Comment();
+        comment.card = Card.find.where().eq("id", id).findUnique();
+        comment.fromUser = User.find.where().eq("id", session("user_id")).findUnique();
+        comment.message = params.get("message")[0];
+
+        comment.insert();
+
+        return view(id);
     }
 }

@@ -1,4 +1,4 @@
-@(card: Card, comments: List[Comment])
+@(user: User, card: Card, comments: List[Comment])
 
 @template("Card Detail") {
 
@@ -16,12 +16,7 @@
         </div>
 
         <div class="well well-lg">
-            @card.message
-            ああああああああああああああああああああ<br>
-            あああああああああああああああああああ<br>
-            あああああああああああああ<br>
-            ああああああああああああああああああああああああ
-
+            @Html(card.message.replaceAll("\n", "<br>\n"))
         </div>
 
         <div class="pull-right text-muted">
@@ -48,9 +43,9 @@
             </li>
         }
         <li class="list-group-item clearfix">
-	        @helper.form(routes.CardController.newComment()) {
+	        @helper.form(routes.CardController.newComment(card.id)) {
 	            <div class="col-md-2 text-right">
-	                名前
+                    @user.getName
 	            </div>
 	            <div class="col-md-8">
 	                <input type="text" name="message" class="form-control" placeholder="コメント">

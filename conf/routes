@@ -20,4 +20,4 @@ GET     /login                      controllers.LoginController.index
 POST    /login                      controllers.LoginController.login
 
 GET     /card/:id                   controllers.CardController.view(id: Integer)
-POST    /card/new_comment           controllers.CardController.newComment
+POST    /card/:id/new_comment           controllers.CardController.newComment(id: Integer)
