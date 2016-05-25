@@ -1,0 +1,16 @@
+@(loginForm: Form[User])
+
+@import helper._
+
+<html>
+    <body>
+        <h1>ログインフォーム</h1>
+
+        @form(routes.LoginController.login()) {
+            @inputText(loginForm("userId"))
+            @inputPassword(loginForm("password"))
+
+            <input type="submit" value="Login">
+        }
+    </body>
+</html>
