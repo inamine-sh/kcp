@@ -21,6 +21,7 @@ GET     /user/:userId               controllers.UserController.index(userId: Str
 
 GET     /login                      controllers.LoginController.index
 POST    /login                      controllers.LoginController.login
+GET     /logout                     controllers.LoginController.logout
 
 GET     /hr                         controllers.HrController.index
 
