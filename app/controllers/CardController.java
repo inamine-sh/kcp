@@ -57,4 +57,16 @@ public class CardController extends Controller {
 
         return redirect(routes.CardController.view(id));
     }
+
+    public Result deleteComment(int cardId, int commentId) {
+        User user = User.find.where().eq("id", session("user_id")).findUnique();
+
+        Comment comment = Comment.find.where().eq("id", commentId).findUnique();
+
+        if(comment.fromUser.id == user.id || 2 <= user.kengen.rank) {
+            comment.delete();
+        }
+
+        return redirect(routes.CardController.view(cardId));
+    }
 }
