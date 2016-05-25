@@ -26,11 +26,12 @@ public class UserController extends Controller {
     }
 
     public Result my() {
-        return TODO;
+        User loginUser = User.find.where().eq("id", session("user_id")).findUnique();
+
+        return index(loginUser.userId);
     }
 
     public Result inbox(String userId) {
-        User loginUser = User.find.where().eq("id", session("user_id")).findUnique();
         User viewUser  = User.find.where().eq("userId", userId).findUnique();
 
         List<Card> cards = Card.find.where().eq("toUser", viewUser).findList();
@@ -39,7 +40,6 @@ public class UserController extends Controller {
     }
 
     public Result outbox(String userId) {
-        User loginUser = User.find.where().eq("id", session("user_id")).findUnique();
         User viewUser  = User.find.where().eq("userId", userId).findUnique();
 
         List<Card> cards = Card.find.where().eq("fromUser", viewUser).findList();
