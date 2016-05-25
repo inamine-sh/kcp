@@ -11,11 +11,22 @@ GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET     /webjars/*file              controllers.WebJarAssets.at(file)
+
+GET     /createdb                   controllers.DatabaseController.index
+
+GET     /user                       controllers.UserController.my
+GET     /user/:userId               controllers.UserController.index(userId: String)
 
 GET     /login                      controllers.LoginController.index
 POST    /login                      controllers.LoginController.login
 
 GET     /hr                         controllers.HrController.index
 
-GET     /createdb                   controllers.DatabaseController.index
+GET     /card/:id                   controllers.CardController.view(id: Integer)
+POST    /card/:id/new_comment       controllers.CardController.newComment(id: Integer)
+POST    /card/:cardId/:commentId/delete_comment    controllers.CardController.deleteComment(cardId: Integer, commentId: Integer)
+
+GET     /userlist                   controllers.UserlistController.index
+
