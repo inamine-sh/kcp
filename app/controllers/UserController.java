@@ -1,5 +1,9 @@
 package controllers;
 
+import java.util.List;
+
+import models.Card;
+import models.User;
 import play.mvc.*;
 
 import views.html.*;
@@ -17,10 +21,29 @@ public class UserController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index(String userId) {
-        return TODO;
+
+        return inbox(userId);
     }
 
     public Result my() {
         return TODO;
+    }
+
+    public Result inbox(String userId) {
+        User loginUser = User.find.where().eq("id", session("user_id")).findUnique();
+        User viewUser  = User.find.where().eq("userId", userId).findUnique();
+
+        List<Card> cards = Card.find.where().eq("toUser", viewUser).findList();
+
+        return ok(user.render(viewUser, cards));
+    }
+
+    public Result outbox(String userId) {
+        User loginUser = User.find.where().eq("id", session("user_id")).findUnique();
+        User viewUser  = User.find.where().eq("userId", userId).findUnique();
+
+        List<Card> cards = Card.find.where().eq("fromUser", viewUser).findList();
+
+        return ok(user.render(viewUser, cards));
     }
 }

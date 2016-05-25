@@ -18,6 +18,8 @@ GET     /createdb                   controllers.DatabaseController.index
 
 GET     /user                       controllers.UserController.my
 GET     /user/:userId               controllers.UserController.index(userId: String)
+GET     /user/:userId/inbox         controllers.UserController.inbox(userId: String)
+GET     /user/:userId/outbox        controllers.UserController.outbox(userId: String)
 
 GET     /login                      controllers.LoginController.index
 POST    /login                      controllers.LoginController.login
