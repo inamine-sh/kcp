@@ -16,5 +16,8 @@ GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
 GET     /createdb                   controllers.DatabaseController.index
 
+GET     /login                      controllers.LoginController.index
+POST    /login                      controllers.LoginController.login
+
 GET     /card/:id                   controllers.CardController.view(id: Integer)
 POST    /card/new_comment           controllers.CardController.newComment
