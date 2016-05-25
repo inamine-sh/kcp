@@ -16,4 +16,6 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /login                      controllers.LoginController.index
 POST    /login                      controllers.LoginController.login
 
+GET     /hr                         controllers.HrController.index
+
 GET     /createdb                   controllers.DatabaseController.index
