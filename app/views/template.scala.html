@@ -29,15 +29,23 @@ body {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">KCP</a>
+                    <a class="navbar-brand" href="@routes.HomeController.index">KCP</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
 	                <ul class="nav navbar-nav">
 	                    <li><a href="#">Board</a></li>
-	                    <li><a href="#">User List</a></li>
+	                    <li><a href="@routes.UserlistController.index">User List</a></li>
 	                    <li><a href="#">Analysis</a></li>
 	                    <li><a href="#">Admin</a></li>
 	                </ul>
+	                <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.find.byId(session.get("user_id").toInt).getName<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.LoginController.logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
