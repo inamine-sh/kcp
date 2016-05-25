@@ -22,3 +22,6 @@ POST    /login                      controllers.LoginController.login
 GET     /card/:id                   controllers.CardController.view(id: Integer)
 POST    /card/:id/new_comment       controllers.CardController.newComment(id: Integer)
 POST    /card/:cardId/:commentId/delete_comment    controllers.CardController.deleteComment(cardId: Integer, commentId: Integer)
+
+GET     /userlist                   controllers.UserlistController.index
+

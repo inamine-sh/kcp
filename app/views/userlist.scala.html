@@ -1,0 +1,26 @@
+@(userlist: List[User])
+
+@import helper._
+
+<style>
+table,th,td{
+    border-collapse: collapse;
+    border: solid 1px;
+    padding: 0.5em;
+    }
+th{
+    background:#ffff99
+    }
+</style>
+
+
+ @common("現在登録されているユーザー一覧") {
+     <h1>ユーザー一覧</h1>
+
+        <table>
+        <tr><th>部署</th><th>名前</th><th>読み仮名</th></tr>
+        @for(list <- userlist) {
+        <tr><th>@list.bushoId.bushoName</th><td><a href=>@list.getName</a></td><td>@list.getYomiName</td></tr>
+        }
+        </table>
+ }
