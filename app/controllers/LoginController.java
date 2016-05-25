@@ -35,4 +35,10 @@ public class LoginController extends Controller {
         }
 
     }
+
+    public Result logout() {
+        session().clear();
+
+        return redirect(routes.HomeController.index());
+    }
 }
