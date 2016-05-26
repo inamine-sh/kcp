@@ -91,6 +91,29 @@
         </li>
     </ul>
 
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+        @helper.form(routes.CardController.newComment(card.id), 'class -> "form-inline text-center") {
+            <div class="form-group">
+                <label for="grade" class="control-label">評価</label><br>
+                <input type="number" name="grade" id="grade" min="1" max="5" placeholder="評価" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="dueDate" class="control-label">掲載期限</label><br>
+                <input type="date" name="dueDate" id="dueDate" placeholder="掲載期限" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="daihyoDate" class="control-label">代表月</label><br>
+                <input type="month" name="daihyoDate" id="daihyoDate" placeholder="代表月" class="form-control">
+                <button type="submit" class="btn btn-primary control-label">決定</button>
+            </div>
+        }
+
+        </div>
+    </div>
+
 </article>
 
 
