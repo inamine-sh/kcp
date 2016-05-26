@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,10 +15,15 @@ public class BoardController extends Controller{
 
     public Result index() {
 
-        List<Card> card = Card.find.all();
+        Date date = new Date();
+
+        ExpressionList<Card> line = Card.find.where().ge("dueDate", date);
+        List <Card> card = line.findList();
 
         List<User> user = User.find.all();
         List<Category> category = Category.find.all();
+
+
         return ok(board.render(card,user,category));
 
     }
@@ -31,25 +37,26 @@ public class BoardController extends Controller{
 
         ExpressionList<Card> temp = Card.find.where();
 
+
         System.out.println(params.toString());
 
-        if (params.get("fromuser")[0] != "-1"){
+        if (!params.get("fromuser")[0].equals("-1")){
             User fromuser = User.find.where().eq("id", Integer.parseInt(params.get("fromuser")[0])).findUnique();
             temp = temp.eq("fromUser", fromuser);
         }
-        if (params.get("touser")[0] != "-1"){
+        if (!params.get("touser")[0].equals("-1")){
             User touser = User.find.where().eq("id", Integer.parseInt(params.get("touser")[0])).findUnique();
             temp = temp.eq("toUser", touser);
         }
-        if (params.get("category")[0] != "-1"){
+        if (!params.get("category")[0].equals("-1")){
             Category category = Category.find.where().eq("id", Integer.parseInt(params.get("category")[0])).findUnique();
-            temp = temp.eq("categoryName",category);
+            temp = temp.eq("category",category);
         }
-
         //List<Card> card = Card.find.where().eq("fromUser", fromuser).eq("toUser", touser).eq("categoryName",category).findList();
 
 
         List <Card> card = temp.findList();
+
 
 
         return ok(board.render(card,user,categorys));
