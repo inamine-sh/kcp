@@ -1,9 +1,19 @@
+@(cardList: List[Card], userList: List[User], categoryList: List[Category])
+
+@import helper._
+
+@common("人事専用") {
+
+<h1>人事専用ページ</h1>
+
+                @for(card <- cardList) {
+                @template_card(card)
+
+            }
+
+}
 
 
-<html>
-    <body>
-        <h1>人事専用ページ</h1>
-    </body>
 </html>
 
 
