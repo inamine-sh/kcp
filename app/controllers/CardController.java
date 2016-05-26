@@ -82,9 +82,24 @@ public class CardController extends Controller {
         Card card1 = Card.find.byId(cardId);
 
         try {
-            if( !params.get("grade")[0].equals("") ) card1.grade = Integer.parseInt( params.get("grade")[0] );
-            if( !params.get("dueDate")[0].equals("") ) card1.dueDate = sdfDay.parse( params.get("dueDate")[0] );
-            if( !params.get("daihyoDate")[0].equals("") ) card1.daihyoDate = sdfMonth.parse( params.get("daihyoDate")[0] );
+            if( !params.get("grade")[0].equals("") ) {
+                card1.grade = Integer.parseInt( params.get("grade")[0] );
+            } else {
+                card1.grade = null;
+            }
+
+            if( !params.get("dueDate")[0].equals("") ){
+                card1.dueDate = sdfDay.parse( params.get("dueDate")[0] );
+            } else {
+                card1.dueDate = null;
+            }
+
+            if( !params.get("daihyoDate")[0].equals("") ){
+                card1.daihyoDate = sdfMonth.parse( params.get("daihyoDate")[0] );
+            } else {
+                card1.daihyoDate =null;
+            }
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
