@@ -33,6 +33,7 @@ GET     /logout                     controllers.LoginController.logout
 GET     /card/:id                   controllers.CardController.view(id: Integer)
 POST    /card/:id/new_comment       controllers.CardController.newComment(id: Integer)
 POST    /card/:cardId/:commentId/delete_comment    controllers.CardController.deleteComment(cardId: Integer, commentId: Integer)
+POST    /card/:cardId/set_grade     controllers.CardController.setGrade(cardId: Integer)
 
 GET     /userlist                   controllers.UserlistController.index
 

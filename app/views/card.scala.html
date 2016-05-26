@@ -1,5 +1,8 @@
 @(user: User, card: Card, comments: List[Comment])
 
+@import org.joda.time.DateTime
+@import org.joda.time.format._
+
 @template("Card Detail") {
 
 
@@ -91,28 +94,29 @@
         </li>
     </ul>
 
+    @if(2 <= user.kengen.rank){
+        <div class="panel panel-default">
+            <div class="panel-body">
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+            @helper.form(routes.CardController.setGrade(card.id), 'class -> "form-inline text-center") {
+                <div class="form-group">
+                    <label for="grade" class="control-label">評価</label><br>
+                    <input type="number" name="grade" id="grade" min="1" max="5" placeholder="評価" class="form-control" value="@card.grade">
+                </div>
+                <div class="form-group">
+                    <label for="dueDate" class="control-label">掲載期限</label><br>
+                    <input type="date" name="dueDate" id="dueDate" placeholder="掲載期限" class="form-control" value="@DateTimeFormat.forPattern("yyyy-MM-dd").print((new DateTime(card.dueDate)))">
+                </div>
+                <div class="form-group">
+                    <label for="daihyoDate" class="control-label">代表月</label><br>
+                    <input type="month" name="daihyoDate" id="daihyoDate" placeholder="代表月" class="form-control" value="@DateTimeFormat.forPattern("yyyy-MM").print((new DateTime(card.daihyoDate)))">
+                    <button type="submit" class="btn btn-primary control-label">決定</button>
+                </div>
+            }
 
-        @helper.form(routes.CardController.newComment(card.id), 'class -> "form-inline text-center") {
-            <div class="form-group">
-                <label for="grade" class="control-label">評価</label><br>
-                <input type="number" name="grade" id="grade" min="1" max="5" placeholder="評価" class="form-control">
             </div>
-            <div class="form-group">
-                <label for="dueDate" class="control-label">掲載期限</label><br>
-                <input type="date" name="dueDate" id="dueDate" placeholder="掲載期限" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="daihyoDate" class="control-label">代表月</label><br>
-                <input type="month" name="daihyoDate" id="daihyoDate" placeholder="代表月" class="form-control">
-                <button type="submit" class="btn btn-primary control-label">決定</button>
-            </div>
-        }
-
         </div>
-    </div>
+    }
 
 </article>
 

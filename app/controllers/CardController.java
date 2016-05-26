@@ -1,5 +1,7 @@
 package controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,7 @@ public class CardController extends Controller {
         User user = User.find.where().eq("id", session("user_id")).findUnique();
 
         Card card1 = Card.find.byId(id);
+        card1.daihyoDate.
         List<Comment> comments = Comment.find.where().eq("card", card1).orderBy("postDate").findList();
 
         return ok(card.render(user, card1, comments));
@@ -69,4 +72,26 @@ public class CardController extends Controller {
 
         return redirect(routes.CardController.view(cardId));
     }
+
+    public Result setGrade(int cardId) {
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdfMonth = new SimpleDateFormat("yyyy-MM");
+
+        Map<String, String[]> params = request().body().asFormUrlEncoded();
+
+        Card card1 = Card.find.byId(cardId);
+
+        try {
+            if( !params.get("grade")[0].equals("") ) card1.grade = Integer.parseInt( params.get("grade")[0] );
+            if( !params.get("dueDate")[0].equals("") ) card1.dueDate = sdfDay.parse( params.get("dueDate")[0] );
+            if( !params.get("daihyoDate")[0].equals("") ) card1.daihyoDate = sdfMonth.parse( params.get("daihyoDate")[0] );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        card1.update();
+
+        return redirect(routes.CardController.view(cardId));
+    }
+
 }
