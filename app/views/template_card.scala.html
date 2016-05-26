@@ -1,6 +1,26 @@
 @(card: Card)
 
-<div>
-ここにカードが表示されます。<br>
-@card.title
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@routes.CardController.view(card.id)" class="panel-title">@card.title</a>
+    </div>
+    <div class="panel-body">
+
+
+        <div class="well well-sm">
+            From: @card.fromUser.getName
+            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            To: @card.toUser.getName
+        </div>
+
+        <div class="well well-sm">
+            @Html(card.message.replaceAll("\n", "<br>\n"))
+        </div>
+
+        <div class="pull-right text-muted">
+            <small>感謝日: @card.kanshaDate</small><br>
+            <small>投稿日: @card.postDate</small><br>
+        </div>
+    </div>
+
 </div>
