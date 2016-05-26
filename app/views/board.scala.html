@@ -1,0 +1,68 @@
+@(cardList: List[Card], userList: List[User], categoryList: List[Category])
+
+@import helper._
+
+@common("掲示板") {
+
+<h1>掲示板</h1>
+
+                <p>検索</p>
+                @helper.form(routes.BoardController.search()) {
+
+                <div style="border-style: solid ; border-width: 1px;width: 200px;">
+                    <p>誰から　<select name="fromuser">
+                        <option value="-1">From</option>
+                        @for(user <- userList) {
+                        <option value="@user.id">@user.getName</option>
+                        }
+						</select></p>
+
+                    <p>誰へ　　<select name="touser">
+                        <option value="-1">To</option>
+                        @for(user <- userList) {
+                        <option value="@user.id">@user.getName</option>
+                        }
+                    </select></p>
+
+                    <p>カテゴリ<select name="category">
+                    <option value="-1">Category</option>
+                        @for(category <- categoryList) {
+                        <option value="@category.id">@category.categoryName</option>
+                        }
+                        </select></p>
+
+                    <p>期間　　<input type="date" name="period" value="" /><br>
+                       　　　 ～<input type="date" name="period" value="" /></p>
+                    <input type="submit" value="検索">
+                </div>
+                }
+                <br>
+                <br>
+                <br>
+
+                @for(card <- cardList) {
+            <div>
+                <div style="border-style: solid ; border-width: 1px;width: 400px;">
+                    <p>タイトル：@card.title</p>
+                </div>
+                <div style="border-style: solid ; border-width: 1px;width: 400px;">
+	            <p>送り主の名前：@card.fromUser.getName   →   もらい主の名前：@card.toUser.getName</p>
+	            </div>
+	            <div style="border-style: solid ; border-width: 1px;width: 400px;">
+	            <p>本文：@card.message</p>
+	            </div>
+	            <div style="border-style: solid ; border-width: 1px;width: 400px;">
+	            <p>カテゴリ：@card.category.categoryName  日付：@card.kanshaDate</p>
+	            </div>
+
+	            <input type="button" value="カード詳細" onclick="location.href='@routes.BoardController.index'" >
+
+            </div>
+            <br>
+            <br>
+            <br>
+            }
+
+}
+
+
