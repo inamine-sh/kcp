@@ -19,3 +19,5 @@ POST    /login                      controllers.LoginController.login
 GET     /createdb                   controllers.DatabaseController.index
 
 GET     /userlist                   controllers.UserlistController.index
+
+GET     /admin                      controllers.AdminController.index
