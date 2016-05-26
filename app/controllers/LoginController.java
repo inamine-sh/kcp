@@ -12,11 +12,8 @@ import views.html.login;
 
 public class LoginController extends Controller {
 
-    @Inject
-    private FormFactory formFactory;
-
     public Result index() {
-        return ok(login.render(formFactory.form(User.class)));
+        return ok(login.render());
     }
 
     public Result login() {

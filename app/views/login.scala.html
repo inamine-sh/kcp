@@ -1,16 +1,24 @@
-@(loginForm: Form[User])
-
 @import helper._
 
-<html>
-    <body>
-        <h1>ログインフォーム</h1>
+@template("Login") {
 
-        @form(routes.LoginController.login()) {
-            @inputText(loginForm("userId"))
-            @inputPassword(loginForm("password"))
+<div class="login">
+    <h1 class="pagetitle">ログインしてください</h1>
 
-            <input type="submit" value="Login">
-        }
-    </body>
-</html>
+    @form(routes.LoginController.login(), 'class -> "form-signin") {
+        <label for="userId">User ID</label>
+        <input type="text" name="userId" class="form-control" placeholder="User ID" required autofocus>
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    }
+</div>
+
+}
