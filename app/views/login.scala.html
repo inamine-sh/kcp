@@ -1,19 +1,40 @@
 @import helper._
 
-@template("Login") {
+
+@head = {
+
+<script type="text/javascript">
+$(function(){
+
+    $('#userId').val($.cookie("userId"));
+    $('#password').val($.cookie("password"));
+
+    $("form").submit(function() {
+        if($("#remember").prop('checked')) {
+            $.cookie("userId", $('#userId').val());
+            $.cookie("password", $('#password').val());
+        }
+    })
+})
+</script>
+
+}
+
+
+@template("Login", head) {
 
 <div class="login">
     <h1 class="pagetitle">ログインしてください</h1>
 
-    @form(routes.LoginController.login(), 'class -> "form-signin") {
+    @form(routes.LoginController.login) {
         <label for="userId">User ID</label>
-        <input type="text" name="userId" class="form-control" placeholder="User ID" required autofocus>
+        <input type="text" id="userId" name="userId" class="form-control" placeholder="User ID" required autofocus>
         <label for="password">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" id="remember" value="remember-me"> Remember me
             </label>
         </div>
 
