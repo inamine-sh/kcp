@@ -41,7 +41,7 @@ public class CardController extends Controller {
         User user = User.find.where().eq("id", session("user_id")).findUnique();
 
         Card card1 = Card.find.byId(id);
-        card1.daihyoDate.
+
         List<Comment> comments = Comment.find.where().eq("card", card1).orderBy("postDate").findList();
 
         return ok(card.render(user, card1, comments));
