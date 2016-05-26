@@ -3,16 +3,17 @@
 @template("User Detail") {
 
 
-<div class="col-md-3">
+<div class="sidebar col-md-3">
     <h1>
         @user.getName
     </h1>
-    <div class="list-group">
+    <div class="menu list-group">
         <a href="@routes.UserController.inbox(user.userId)" class="list-group-item">受信箱</a>
         <a href="@routes.UserController.outbox(user.userId)" class="list-group-item">送信箱</a>
         <a class="list-group-item">新規作成</a>
     </div>
 </div>
+
 <div class="col-md-8">
 
 @for(card <- cards) {

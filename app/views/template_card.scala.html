@@ -1,26 +1,34 @@
 @(card: Card)
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <a href="@routes.CardController.view(card.id)" class="panel-title">@card.title</a>
+
+<article class="card">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <header class="clearfix">
+                <div class="pull-left">
+                    <a href="@routes.CardController.view(card.id)" class="card-title">@card.title</a>
+                    <div class="card-date">
+                        @card.kanshaDate の出来事
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="card-address text-center">
+                        <div class="card-from">
+                            <a href="@routes.UserController.index(card.fromUser.userId)" class="card-name btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @card.fromUser.getName
+                            </a>
+                        </div>
+                        <div class="glyphicon glyphicon-arrow-down"></div>
+                        <div class="card-to">
+                            <a href="@routes.UserController.index(card.toUser.userId)" class="card-name btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @card.toUser.getName
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
     </div>
-    <div class="panel-body">
-
-
-        <div class="well well-sm">
-            From: @card.fromUser.getName
-            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-            To: @card.toUser.getName
-        </div>
-
-        <div class="well well-sm">
-            @Html(card.message.replaceAll("\n", "<br>\n"))
-        </div>
-
-        <div class="pull-right text-muted">
-            <small>感謝日: @card.kanshaDate</small><br>
-            <small>投稿日: @card.postDate</small><br>
-        </div>
-    </div>
-
-</div>
+</article>
