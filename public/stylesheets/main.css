@@ -1,3 +1,16 @@
 body {
     background-color: #f5f8fa;
 }
+
+.card .card-title {
+    font-size: 18pt;
+}
+
+.card .card-name {
+
+}
+
+.card .card-date {
+    font-size: 12px;
+    color: #999;
+}

@@ -2,34 +2,60 @@
 
 @template("Card Detail") {
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">@card.title</div>
+
+
+<article class="card">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <header class="clearfix">
+                <div class="pull-left">
+                    <h1 class="card-title">@card.title</h1>
+                    <div class="card-date">
+                        @card.kanshaDate の出来事
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="card-address text-center">
+                        <div class="card-from">
+                            <a href="@routes.UserController.index(card.fromUser.userId)" class="card-name btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @card.fromUser.getName
+                            </a>
+                        </div>
+                        <div class="glyphicon glyphicon-arrow-down"></div>
+                        <div class="card-to">
+                            <a href="@routes.UserController.index(card.toUser.userId)" class="card-name btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @card.toUser.getName
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <hr>
+            <div class="card-message">
+                @Html(card.message.replaceAll("\n", "<br>\n"))
+            </div>
+            <hr>
+            <footer>
+                <div class="pull-left">
+                    @*カテゴリ未リンク*@
+                    <a href="#" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        @card.category.categoryName
+                    </a>
+                </div>
+                <div class="pull-right text-right">
+                    <div class="card-date">投稿 @card.postDate</div>
+                    <div class="card-date">更新 @card.updateDate</div>
+                </div>
+            </footer>
+        </div>
     </div>
-    <div class="panel-body">
 
-
-        <div class="well well-sm"">
-            From: @card.fromUser.getName
-            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-            To: @card.toUser.getName
-        </div>
-
-        <div class="well well-lg">
-            @Html(card.message.replaceAll("\n", "<br>\n"))
-        </div>
-
-        <div class="pull-right text-muted">
-            <small>感謝日: @card.kanshaDate</small><br>
-            <small>投稿日: @card.postDate</small><br>
-            <small>更新日: @card.updateDate</small><br>
-        </div>
-    </div>
-
-
-    <ul class="list-group">
+    <ul class="comments list-group">
         @for(comment <- comments) {
-            <li class="list-group-item clearfix">
+            <li class="comment list-group-item clearfix">
                 <div class="clearfix">
                     <div class="col-md-2 text-right">
                         @comment.fromUser.getName
@@ -39,18 +65,18 @@
                     </div>
                     @if(comment.fromUser == user || 2 <= user.kengen.rank){
                         <div class="col-md-1">
-                        @helper.form(routes.CardController.deleteComment(card.id, comment.id)) {
-                            <button type="submit" class="btn btn-danger control-label" onclick='return confirm("削除しますか？");'>削除</button>
-                        }
+                            @helper.form(routes.CardController.deleteComment(card.id, comment.id)) {
+                                <button type="submit" class="btn btn-danger control-label" onclick='return confirm("削除しますか？");'>削除</button>
+                            }
                         </div>
                     }
                 </div>
-                <div class="text-right text-muted">
-                    <small>@comment.postDate</small>
+                <div class="card-date text-right text-muted">
+                    投稿 @comment.postDate
                 </div>
             </li>
         }
-        <li class="list-group-item clearfix">
+        <li class="comment list-group-item clearfix">
             @helper.form(routes.CardController.newComment(card.id)) {
                 <div class="col-md-2 text-right">
                     @user.getName
@@ -63,10 +89,14 @@
                 </div>
             }
         </li>
-
     </ul>
 
+</article>
 
-</div>
+
+
+
+
+
 
 }
