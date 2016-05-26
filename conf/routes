@@ -17,9 +17,9 @@ GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
 GET     /createdb                   controllers.DatabaseController.index
 
+
 GET     /board                      controllers.BoardController.index
 POST    /board                      controllers.BoardController.search
-
 
 GET     /user                       controllers.UserController.my
 GET     /user/:userId               controllers.UserController.index(userId: String)
@@ -39,4 +39,6 @@ POST    /card/:cardId/:commentId/delete_comment    controllers.CardController.de
 POST    /card/:cardId/set_grade     controllers.CardController.setGrade(cardId: Integer)
 
 GET     /userlist                   controllers.UserlistController.index
+
+GET     /admin                      controllers.AdminController.index
 
