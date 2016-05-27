@@ -105,11 +105,11 @@
                 </div>
                 <div class="form-group">
                     <label for="dueDate" class="control-label">掲載期限</label><br>
-                    <input type="date" name="dueDate" id="dueDate" placeholder="掲載期限" class="form-control" value="@DateTimeFormat.forPattern("yyyy-MM-dd").print((new DateTime(card.dueDate)))">
+                    <input type="date" name="dueDate" id="dueDate" placeholder="掲載期限" class="form-control" value="@if(card.dueDate != null) {@DateTimeFormat.forPattern("yyyy-MM-dd").print((new DateTime(card.dueDate)))}">
                 </div>
                 <div class="form-group">
                     <label for="daihyoDate" class="control-label">代表月</label><br>
-                    <input type="month" name="daihyoDate" id="daihyoDate" placeholder="代表月" class="form-control" value="@DateTimeFormat.forPattern("yyyy-MM").print((new DateTime(card.daihyoDate)))">
+                    <input type="month" name="daihyoDate" id="daihyoDate" placeholder="代表月" class="form-control" value="@if(card.daihyoDate != null) {@DateTimeFormat.forPattern("yyyy-MM").print((new DateTime(card.daihyoDate)))}">
                     <button type="submit" class="btn btn-primary control-label">決定</button>
                 </div>
             }
