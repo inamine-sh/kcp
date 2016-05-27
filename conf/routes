@@ -23,6 +23,7 @@ POST    /board                      controllers.BoardController.search
 
 GET     /user                       controllers.UserController.my
 GET     /user/:userId               controllers.UserController.index(userId: String)
+POST    /user/:userId               controllers.UserController.index(userId: String)
 GET     /user/:userId/inbox         controllers.UserController.inbox(userId: String)
 GET     /user/:userId/outbox        controllers.UserController.outbox(userId: String)
 

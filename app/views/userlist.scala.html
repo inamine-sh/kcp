@@ -20,7 +20,7 @@ th{
         <table>
         <tr><th>部署</th><th>名前</th><th>読み仮名</th></tr>
         @for(list <- userlist) {
-        <tr><th>@list.bushoId.bushoName</th><td><a href=>@list.getName</a></td><td>@list.getYomiName</td></tr>
+        <tr><th>@list.bushoId.bushoName</th><td><a href="@routes.UserController.index(list.userId)">@list.getName</a></td><td>@list.getYomiName</td></tr>
         }
         </table>
  }
