@@ -3,13 +3,13 @@
 
 <style>
 table, th, td {
-	border-collapse: collapse;
-	border: solid 1px;
-	padding: 0.5em;
+    border-collapse: collapse;
+    border: solid 1px;
+    padding: 0.5em;
 }
 
 th {
-	background: #ffff99
+    background: #ffff99
 }
 </style>
 
@@ -18,21 +18,45 @@ th {
 <h1>ユーザー一覧</h1>
 
 <table>
-	<tr>
-		<th>ユーザーID</th>
-		<th>部署</th>
-		<th>名前</th>
-		<th>読み仮名</th>
-		<th>権限</th>
-	</tr>
-	@for(list <- userlist) {
-	<tr>
-		<th>@list.userId</th>
-		<td>@list.bushoId.bushoName</td>
-		<td><a href=>@list.getName</a></td>
-		<td>@list.getYomiName</td>
-		<td>@list.kengen.kengenName</td>
-	</tr>
-	}
+    <tr>
+        <th>ユーザーID</th>
+        <th>部署</th>
+        <th>名前</th>
+        <th>読み仮名</th>
+        <th>権限</th>
+    </tr>
+    @for(list <- userlist) {
+    <tr>
+        <th>@list.userId</th>
+        <td>@list.bushoId.bushoName</td>
+        <td><a href="@routes.UserController.index(list.userId)">@list.getName</a></td>
+        <td>@list.getYomiName</td>
+        <td>@list.kengen.kengenName</td>
+    </tr>
+    }
 </table>
+
+            @helper.form(routes.AdminController.newUser()) {
+                    <input type="text" name="userId" placeholder="ユーザーID">
+                    <input type="text" name="password" placeholder="パスワード">
+                    <input type="text" name="last" placeholder="姓">
+                    <input type="text" name="middle" placeholder="ミドル">
+                    <input type="text" name="first" placeholder="名">
+                    <input type="text" name="yomiLast" placeholder="読み仮名（姓）">
+                    <input type="text" name="yomiMiddle" placeholder="読み仮名（ミドル）">
+                    <input type="text" name="yomiFirst" placeholder="読み仮名（名）">
+                    <FORM>
+                    <SELECT name="bushoId">
+                    <OPTION value="1">人事部</OPTION>
+                    <OPTION value="2">経理部</OPTION>
+                    </SELECT>
+                    <SELECT name="kengen">
+                    <OPTION value="1">一般</OPTION>
+                    <OPTION value="2">人事</OPTION>
+                    <OPTION value="3">経理</OPTION>
+                    </SELECT>
+                    <button type="submit" class="btn btn-primary control-label">新規作成</button>
+                    </FORM>
+            }
 }
+

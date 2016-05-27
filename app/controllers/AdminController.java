@@ -54,4 +54,26 @@ public class AdminController extends Controller {
         return ok(admin.render(UserList));
 
     }
+
+    public Result newUser() {
+
+        Map<String, String[]> params = request().body().asFormUrlEncoded();
+
+        User user = new User();
+        user.userId = params.get("userId")[0];
+        user.password = params.get("password")[0];
+        user.last = params.get("last")[0];
+        user.middle = params.get("middle")[0];
+        user.first = params.get("first")[0];
+        user.yomiLast = params.get("yomiLast")[0];
+        user.yomiMiddle = params.get("yomiMiddle")[0];
+        user.yomiFirst = params.get("yomiFirst")[0];
+        user.bushoId = Busho.find.where().eq("id", params.get("bushoId")[0]).findUnique();
+        user.kengen = Kengen.find.where().eq("id", params.get("kengen")[0]).findUnique();
+
+        user.insert();
+
+        return redirect(routes.AdminController.index());
+    }
+
 }
