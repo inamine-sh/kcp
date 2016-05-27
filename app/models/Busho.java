@@ -28,7 +28,7 @@ public class Busho extends Model {
 
 
     // 検索用
-    public static Find<Integer,Busho> find = new Find<Integer,Busho>(){};
+    public static Model.Find<Integer,Busho> find = new Model.Find<Integer,Busho>(){};
 
 
     // ユーザーリスト

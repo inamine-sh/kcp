@@ -28,7 +28,7 @@ public class Category extends Model {
 
 
     // 検索用
-    public static Find<Integer,Category> find = new Find<Integer,Category>(){};
+    public static Model.Find<Integer,Category> find = new Model.Find<Integer,Category>(){};
 
 
     // カードリスト

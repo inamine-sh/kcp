@@ -32,7 +32,7 @@ public class Kengen extends Model {
 
 
     // 検索用
-    public static Find<Integer,Kengen> find = new Find<Integer,Kengen>(){};
+    public static Model.Find<Integer,Kengen> find = new Model.Find<Integer,Kengen>(){};
 
 
     // ユーザーリスト
