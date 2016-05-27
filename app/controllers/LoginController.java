@@ -26,6 +26,7 @@ public class LoginController extends Controller {
 
         if (user != null && user.password.equals(password)) {
             session("user_id", Integer.toString(user.id));
+            session("user_getName", user.getName());
             return redirect(routes.HomeController.index());
         } else {
             return index();
