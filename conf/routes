@@ -32,11 +32,14 @@ GET     /logout                     controllers.LoginController.logout
 
 GET     /hr                         controllers.HrController.index
 
-GET     /card/:id                   controllers.CardController.view(id: Integer)
-POST    /card/:id                   controllers.CardController.view(id: Integer)
-POST    /card/:id/new_comment       controllers.CardController.newComment(id: Integer)
-POST    /card/:cardId/:commentId/delete_comment    controllers.CardController.deleteComment(cardId: Integer, commentId: Integer)
-POST    /card/:cardId/set_grade     controllers.CardController.setGrade(cardId: Integer)
+POST    /card/new                                       controllers.CardController.newCard
+POST    /card/edit                                      controllers.CardController.editCard
+GET     /card/view/:id                                  controllers.CardController.view(id: Integer)
+POST    /card/view/:id                                  controllers.CardController.view(id: Integer)
+POST    /card/view/:id/new_comment                      controllers.CardController.newComment(id: Integer)
+POST    /card/view/:cardId/:commentId/delete_comment    controllers.CardController.deleteComment(cardId: Integer, commentId: Integer)
+POST    /card/view/:cardId/set_grade                    controllers.CardController.setGrade(cardId: Integer)
+
 
 GET     /userlist                   controllers.UserlistController.index
 

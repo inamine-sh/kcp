@@ -34,11 +34,6 @@ public class CardController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
 
-    public Result my() {
-
-        return TODO;
-    }
-
     public Result view(int id) {
         User user = User.find.where().eq("id", session("user_id")).findUnique();
 
@@ -50,11 +45,12 @@ public class CardController extends Controller {
     }
 
     public Result newCard() {
-
-
         return TODO;
     }
 
+    public Result editCard() {
+        return TODO;
+    }
 
     public Result newComment(int id) {
 
