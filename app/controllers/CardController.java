@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import com.avaje.ebean.Ebean;
+
 import models.Busho;
 import models.Card;
 import models.Comment;
@@ -46,6 +48,13 @@ public class CardController extends Controller {
 
         return ok(card.render(user, card1, comments));
     }
+
+    public Result newCard() {
+
+
+        return TODO;
+    }
+
 
     public Result newComment(int id) {
 
