@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,14 +26,17 @@ public class User extends Model {
 
     // ユーザーID
     @Required
+    @Column(nullable = false)
     public String userId;
 
     // パスワード
     @Required
+    @Column(nullable = false)
     public String password;
 
     // 姓
     @Required
+    @Column(nullable = false)
     public String last;
 
     // ミドル
@@ -40,10 +44,12 @@ public class User extends Model {
 
     // 名
     @Required
+    @Column(nullable = false)
     public String first;
 
     // 姓(読み)
     @Required
+    @Column(nullable = false)
     public String yomiLast;
 
     // ミドル(読み)
@@ -51,16 +57,19 @@ public class User extends Model {
 
     // 名(読み)
     @Required
+    @Column(nullable = false)
     public String yomiFirst;
 
     // 部署ID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public Busho bushoId;
 
     // 権限ID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public Kengen kengen;
 
     // 登録日

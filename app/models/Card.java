@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,21 +30,25 @@ public class Card extends Model {
     // 送り元ID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public User fromUser;
 
     // 送り先ID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public User toUser;
 
     // 送り元部署ID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public Busho fromBusho;
 
     // 送り先部署ID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public Busho toBusho;
 
     // カテゴリID
@@ -52,10 +57,12 @@ public class Card extends Model {
 
     // タイトル
     @Required
+    @Column(nullable = false)
     public String title;
 
     // 本文
     @Required
+    @Column(nullable = false)
     public String message;
 
     // 感謝日時

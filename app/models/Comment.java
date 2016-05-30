@@ -2,6 +2,7 @@ package models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,11 +25,13 @@ public class Comment extends Model {
     // 感謝カードID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public Card card;
 
     // 送り元ID
     @ManyToOne
     @Required
+    @Column(nullable = false)
     public User fromUser;
 
     // 本文
