@@ -42,11 +42,13 @@
             <hr>
             <footer>
                 <div class="pull-left">
-                    @*カテゴリ未リンク*@
-                    <a href="#" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-tag"></span>
-                        @card.category.categoryName
-                    </a>
+                    @helper.form(routes.BoardController.search()) {
+                        <input type="hidden" name="category" value="@card.category.id">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-tag"></span>
+                            @card.category.categoryName
+                        </button>
+                    }
                 </div>
                 <div class="pull-right text-right">
                     <div class="card-date">投稿 @card.postDate</div>
