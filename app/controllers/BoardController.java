@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.avaje.ebean.ExpressionList;
+import com.avaje.ebeaninternal.api.BindParams.Param;
 
 import models.*;
 import play.mvc.Controller;
@@ -61,24 +62,24 @@ public class BoardController extends Controller{
 
         System.out.println(params.toString());
 
-        if (!params.get("fromuser")[0].equals("-1")){
+        if (params.containsKey("fromuser") && !params.get("fromuser")[0].equals("-1")){
             User fromuser = User.find.where().eq("id", Integer.parseInt(params.get("fromuser")[0])).findUnique();
             temp = temp.eq("fromUser", fromuser);
         }
-        if (!params.get("touser")[0].equals("-1")){
+        if (params.containsKey("touser") && !params.get("touser")[0].equals("-1")){
             User touser = User.find.where().eq("id", Integer.parseInt(params.get("touser")[0])).findUnique();
             temp = temp.eq("toUser", touser);
         }
-        if (!params.get("category")[0].equals("-1")){
+        if (params.containsKey("category") && !params.get("category")[0].equals("-1")){
             Category category = Category.find.where().eq("id", Integer.parseInt(params.get("category")[0])).findUnique();
             temp = temp.eq("category",category);
         }
 
-        if (!params.get("begin")[0].equals("")){
+        if (params.containsKey("begin") && !params.get("begin")[0].equals("")){
             temp = temp.ge("kanshaDate", params.get("begin")[0]);
         }
 
-        if (!params.get("end")[0].equals("")){
+        if (params.containsKey("end") && !params.get("end")[0].equals("")){
             temp = temp.le("kanshaDate", params.get("end")[0]);
         }
 

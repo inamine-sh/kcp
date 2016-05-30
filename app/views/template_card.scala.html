@@ -12,7 +12,16 @@
                     </div>
                 </div>
                 <div class="pull-right">
-                    <div class="card-address text-center">
+                    <div class="col-sm-6 text-center">
+                    @helper.form(routes.BoardController.search()) {
+                        <input type="hidden" name="category" value="@card.category.id">
+                        <button type="submit" class="btn btn-primary btn-xs">
+                            <span class="glyphicon glyphicon-tag"></span>
+                            @card.category.categoryName
+                        </button>
+                    }
+                    </div>
+                    <div class="card-address col-sm-6 text-center">
                         <div class="card-from">
                             <a href="@routes.UserController.index(card.fromUser.userId)" class="card-name btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-user"></span>
