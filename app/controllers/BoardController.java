@@ -1,8 +1,15 @@
 package controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.avaje.ebean.ExpressionList;
 
@@ -17,18 +24,32 @@ public class BoardController extends Controller{
 
         Date date = new Date();
 
-        ExpressionList<Card> line = Card.find.where().ge("dueDate", date);
-        List <Card> card = line.findList();
+        SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-01");
+        String now = dateform.format(new Date());
 
+        ExpressionList<Card> line = Card.find.where();
+        line = line.ge("dueDate", date);
+        line = line.isNotNull("grade");
+
+        ExpressionList<Card> dai = Card.find.where();
+        dai = dai.eq("daihyoDate", now);
+
+
+        List <Card> card = line.findList();
         List<User> user = User.find.all();
         List<Category> category = Category.find.all();
+        List <Card> card2 = dai.findList();
 
 
-        return ok(board.render(card,user,category));
+        return ok(board.render(card,user,category,card2));
 
     }
 
     public Result search() {
+
+        List <Card> card2 = null;
+
+
 
         List<User> user = User.find.all();
         List<Category> categorys = Category.find.all();
@@ -52,17 +73,18 @@ public class BoardController extends Controller{
             Category category = Category.find.where().eq("id", Integer.parseInt(params.get("category")[0])).findUnique();
             temp = temp.eq("category",category);
         }
-        //List<Card> card = Card.find.where().eq("fromUser", fromuser).eq("toUser", touser).eq("categoryName",category).findList();
 
+        if (!params.get("begin")[0].equals("")){
+            temp = temp.ge("kanshaDate", params.get("begin")[0]);
+        }
+
+        if (!params.get("end")[0].equals("")){
+            temp = temp.le("kanshaDate", params.get("end")[0]);
+        }
 
         List <Card> card = temp.findList();
 
-
-
-        return ok(board.render(card,user,categorys));
+        return ok(board.render(card,user,categorys,card2));
 
     }
-
-
-
 }
