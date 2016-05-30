@@ -13,5 +13,6 @@ libraryDependencies ++= Seq(
   javaWs,
   "org.webjars" %% "webjars-play" % "2.5.0",
   "org.webjars" % "bootstrap" % "3.1.1-2",
-  "org.webjars" % "jquery-cookie" % "1.4.1-1"
+  "org.webjars" % "jquery-cookie" % "1.4.1-1",
+  "org.webjars" % "datatables" % "1.10.11"
 )
