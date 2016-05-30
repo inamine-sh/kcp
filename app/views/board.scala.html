@@ -1,10 +1,24 @@
-@(cardList: List[Card], userList: List[User], categoryList: List[Category])
+@(cardList: List[Card], userList: List[User], categoryList: List[Category], daihyoList: List[Card])
 
 @import helper._
 
 @template("掲示板") {
 
 <h1>掲示板</h1>
+
+
+                <dev>
+                @if(daihyoList != null){
+                <h2>代表的なカード</h2>
+                    @for(card2 <- daihyoList) {
+                        @template_card(card2)
+                    }
+                }
+                </dev>
+
+
+
+
 
                 <p>検索</p>
                 @helper.form(routes.BoardController.search()) {
