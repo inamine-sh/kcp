@@ -59,9 +59,9 @@ public class CardController extends Controller {
             card1.toUser = User.find.where().eq("id", params.get("toUserId")[0]).findUnique();
             card1.fromBusho = card1.fromUser.bushoId;
             card1.toBusho = card1.toUser.bushoId;
-            card1.category = Category.find.where().eq("id", params.get("categoryId")[0]).findUnique();
-            card1.kanshaDate = sdfDay.parse( params.get("kanshaDate")[0] );
-            card1.title = params.get("title")[0];
+            card1.category = !params.get("categoryId")[0].equals("") ? Category.find.where().eq("id", params.get("categoryId")[0]).findUnique() : null;
+            card1.kanshaDate = !params.get("kanshaDate")[0].equals("") ? sdfDay.parse( params.get("kanshaDate")[0] ) : null;
+            card1.title = !params.get("title")[0].equals("") ? params.get("title")[0] : null;
             card1.message = params.get("message")[0];
 
             card1.save();
