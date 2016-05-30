@@ -13,9 +13,11 @@
             <header class="clearfix">
                 <div class="pull-left">
                     <h1 class="card-title">@card.title</h1>
-                    <div class="card-date">
-                        @card.kanshaDate の出来事
-                    </div>
+                    @if(card.kanshaDate != null) {
+                        <div class="card-date">
+                            @card.kanshaDate の出来事
+                        </div>
+                    }
                 </div>
                 <div class="pull-right">
                     <div class="card-address text-center">
@@ -42,12 +44,14 @@
             <hr>
             <footer>
                 <div class="pull-left">
-                    @helper.form(routes.BoardController.search()) {
-                        <input type="hidden" name="category" value="@card.category.id">
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-tag"></span>
-                            @card.category.categoryName
-                        </button>
+                    @if(card.category != null) {
+                        @helper.form(routes.BoardController.search()) {
+                            <input type="hidden" name="category" value="@card.category.id">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-tag"></span>
+                                @card.category.categoryName
+                            </button>
+                        }
                     }
                 </div>
                 <div class="pull-right text-right">

@@ -7,9 +7,11 @@
             <header class="clearfix">
                 <div class="pull-left">
                     <a href="@routes.CardController.view(card.id)" class="card-title">@card.title</a>
-                    <div class="card-date">
-                        @card.kanshaDate の出来事
-                    </div>
+                    @if(card.kanshaDate != null) {
+                        <div class="card-date">
+                            @card.kanshaDate の出来事
+                        </div>
+                    }
                 </div>
                 <div class="pull-right">
                     @if(card.category != null) {
