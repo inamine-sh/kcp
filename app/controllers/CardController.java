@@ -12,6 +12,7 @@ import com.avaje.ebean.Ebean;
 
 import models.Busho;
 import models.Card;
+import models.Category;
 import models.Comment;
 import models.User;
 import play.data.Form;
@@ -45,7 +46,29 @@ public class CardController extends Controller {
     }
 
     public Result newCard() {
-        return TODO;
+        User user = User.find.where().eq("id", session("user_id")).findUnique();
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
+
+        // パラメータを受け取る
+        Map<String, String[]> params = request().body().asFormUrlEncoded();
+
+        Card card1 = new Card();
+
+        try {
+            card1.fromUser = user;
+            card1.toUser = User.find.where().eq("id", params.get("toUserId")[0]).findUnique();
+            card1.fromBusho = card1.fromUser.bushoId;
+            card1.toBusho = card1.toUser.bushoId;
+            card1.category = Category.find.where().eq("id", params.get("categoryId")[0]).findUnique();
+            card1.kanshaDate = sdfDay.parse( params.get("kanshaDate")[0] );
+            card1.title = params.get("title")[0];
+            card1.message = params.get("message")[0];
+
+            card1.save();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return redirect(routes.UserController.outbox(user.userId));
     }
 
     public Result editCard() {

@@ -14,15 +14,19 @@
 
 
 
-<form class="form-horizontal" role="form">
+<section id="new-card" class="panel panel-default">
+<div class="panel-body">
 
-  <!-- input -->
+
+@helper.form(routes.CardController.newCard, 'class -> "form-horizontal") {
+
+
   <div class="form-group">
     <label class="col-sm-2 control-label">To</label>
     <div class="col-sm-4">
-      <select class="form-control">
+      <select name="toUserId" class="form-control">
       @for(user <- User.find.where().findList() ) {
-        <option>@user.getName (@user.bushoId.bushoName)</option>
+        <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
       }
       </select>
     </div>
@@ -32,38 +36,46 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">カテゴリ</label>
     <div class="col-sm-4">
-      <select class="form-control">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
+      <select name="categoryId" class="form-control">
+        <option></option>
+      @for(category <- Category.find.where().findList() ) {
+        <option value="@category.id">@category.categoryName</option>
+      }
       </select>
     </div>
   </div>
 
-  <!-- textarea -->
+
   <div class="form-group">
     <label class="col-sm-2 control-label">感謝日</label>
     <div class="col-sm-4">
-      <input type="date" class="form-control">
+      <input type="date" name="kanshaDate" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">タイトル</label>
+    <div class="col-sm-10">
+      <input type="text" name="title" class="form-control">
     </div>
   </div>
 
 
-        <!-- textarea -->
         <div class="form-group">
           <label class="col-sm-2 control-label">メッセージ</label>
           <div class="col-sm-10">
-            <textarea class="form-control" rows="5"></textarea>
+            <textarea name="message" class="form-control" rows="5"></textarea>
           </div>
         </div>
 
        <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">サインイン</button>
+            <button type="submit" class="btn btn-primary">送信</button>
           </div>
         </div>
 
+}
 
-</form>
+
+</div>
+</section>
