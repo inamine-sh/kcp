@@ -1,81 +1,79 @@
 @(card: Card = new Card())
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<section class="modal fade" id="new-card">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            @helper.form(routes.CardController.newCard, 'class -> "form-horizontal") {
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title">新規カード</h2>
+                </div>
 
 
+                <div class="modal-body">
 
-<section id="new-card" class="panel panel-default">
-<div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">To</label>
+                        <div class="col-sm-4">
+                            <select name="toUserId" class="form-control">
+                                @for(user <- User.find.where().findList() ) {
+                                    <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">カテゴリ</label>
+                        <div class="col-sm-4">
+                            <select name="categoryId" class="form-control">
+                                <option></option>
+                                @for(category <- Category.find.where().findList() ) {
+                                    <option value="@category.id">@category.categoryName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
 
-@helper.form(routes.CardController.newCard, 'class -> "form-horizontal") {
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">感謝日</label>
+                        <div class="col-sm-4">
+                            <input type="date" name="kanshaDate" class="form-control">
+                        </div>
+                    </div>
 
-
-  <div class="form-group">
-    <label class="col-sm-2 control-label">To</label>
-    <div class="col-sm-4">
-      <select name="toUserId" class="form-control">
-      @for(user <- User.find.where().findList() ) {
-        <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
-      }
-      </select>
-    </div>
-  </div>
-
-
-  <div class="form-group">
-    <label class="col-sm-2 control-label">カテゴリ</label>
-    <div class="col-sm-4">
-      <select name="categoryId" class="form-control">
-        <option></option>
-      @for(category <- Category.find.where().findList() ) {
-        <option value="@category.id">@category.categoryName</option>
-      }
-      </select>
-    </div>
-  </div>
-
-
-  <div class="form-group">
-    <label class="col-sm-2 control-label">感謝日</label>
-    <div class="col-sm-4">
-      <input type="date" name="kanshaDate" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-sm-2 control-label">タイトル</label>
-    <div class="col-sm-10">
-      <input type="text" name="title" class="form-control">
-    </div>
-  </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">タイトル</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="title" class="form-control">
+                        </div>
+                    </div>
 
 
-        <div class="form-group">
-          <label class="col-sm-2 control-label">メッセージ</label>
-          <div class="col-sm-10">
-            <textarea name="message" class="form-control" rows="5"></textarea>
-          </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">メッセージ</label>
+                        <div class="col-sm-10">
+                            <textarea name="message" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">送信</button>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
         </div>
-
-       <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">送信</button>
-          </div>
-        </div>
-
-}
-
-
-</div>
+    </div>
 </section>
