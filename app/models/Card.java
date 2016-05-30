@@ -84,7 +84,7 @@ public class Card extends Model {
 
 
     // 検索用
-    public static Find<Integer,Card> find = new Find<Integer,Card>(){};
+    public static Model.Find<Integer,Card> find = new Model.Find<Integer,Card>(){};
 
 
     // コメントリスト

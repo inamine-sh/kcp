@@ -44,6 +44,6 @@ public class Comment extends Model {
 
 
     // 検索用
-    public static Find<Integer,Comment> find = new Find<Integer,Comment>(){};
+    public static Model.Find<Integer,Comment> find = new Model.Find<Integer,Comment>(){};
 
 }

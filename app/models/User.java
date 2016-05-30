@@ -69,7 +69,7 @@ public class User extends Model {
 
 
     // 検索用
-    public static Find<Integer,User> find = new Find<Integer,User>(){};
+    public static Model.Find<Integer,User> find = new Model.Find<Integer,User>(){};
 
 
     // カードリストfrom
