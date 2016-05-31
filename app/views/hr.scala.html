@@ -6,14 +6,10 @@
 
 <h1>人事専用ページ</h1>
 
-                @for(card <- cardList) {
-                @template_card(card)
+<h2>未評価カード一覧</h2>
 
-            }
-
+@for(card <- cardList) {
+    @template_card(card)
 }
 
-
-</html>
-
-
+}
