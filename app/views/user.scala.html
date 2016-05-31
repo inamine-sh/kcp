@@ -6,15 +6,22 @@
 <h1 class="pagetitle">
     @user.getName
 </h1>
-<div class="sidebar col-md-3">
+<div class="sidebar col-sm-3">
     <div class="menu list-group">
         <a href="@routes.UserController.inbox(user.userId)" class="list-group-item @if(flash.get("submenu")=="inbox"){active}">受信箱</a>
         <a href="@routes.UserController.outbox(user.userId)" class="list-group-item @if(flash.get("submenu")=="outbox"){active}">送信箱</a>
-        <a href="#" class="list-group-item" data-toggle="modal" data-target="#new-card">新規作成</a>
     </div>
+
+    <div>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#new-card" style="width:100%;">
+        <span class="glyphicon glyphicon-pencil"></span>
+        新規カード
+    </a>
+    </div>
+
 </div>
 
-<div  class="col-md-8">
+<div  class="col-sm-8">
 
 @for(card <- cards) {
     @template_card(card)
