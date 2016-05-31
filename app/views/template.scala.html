@@ -35,13 +35,12 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="@routes.BoardController.index">Board</a></li>
-                    <li><a href="@routes.UserlistController.index">User List</a></li>
-                    <li><a href="#">Analysis</a></li>
-                    <li><a href="@routes.HrController.index">HR</a></li>
-                    <li><a href="@routes.AdminController.index">Admin</a></li>
+                    <li@if(flash.get("menu")=="board"){ class="active"}><a href="@routes.BoardController.index">Board</a></li>
+                    <li@if(flash.get("menu")=="userlist"){ class="active"}><a href="@routes.UserlistController.index">User List</a></li>
+                    <li@if(flash.get("menu")=="analysis"){ class="active"}><a href="#">Analysis</a></li>
+                    <li@if(flash.get("menu")=="hr"){ class="active"}><a href="@routes.HrController.index">HR</a></li>
+                    <li@if(flash.get("menu")=="admin"){ class="active"}><a href="@routes.AdminController.index">Admin</a></li>
                 </ul>
-
                 @if(session.get("user_getName") != null){
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">

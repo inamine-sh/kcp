@@ -21,7 +21,12 @@ import views.html.*;
 
 public class BoardController extends Controller{
 
+    private void init() {
+        flash("menu", "board");
+    }
+
     public Result index() {
+        init();
 
         Date date = new Date();
 
@@ -47,10 +52,9 @@ public class BoardController extends Controller{
     }
 
     public Result search() {
+        init();
 
         List <Card> card2 = null;
-
-
 
         List<User> user = User.find.all();
         List<Category> categorys = Category.find.all();

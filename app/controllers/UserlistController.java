@@ -39,17 +39,13 @@ public class UserlistController extends Controller {
     @Inject
     private FormFactory formFactory;
 
-    /**
-     * An action that renders an HTML page with a welcome message. The
-     * configuration in the <code>routes</code> file means that this method will
-     * be called when the application receives a <code>GET</code> request with a
-     * path of <code>/</code>.
-     */
+    private void init() {
+        flash("menu", "userlist");
+    }
+
     public Result index() {
-        /*
-         * File file = new File("conf/sample.sql"); return
-         * ok(userlist.render(file, formFactory.form(User.class)));
-         */
+        init();
+
         List<User> UserList = User.find.all();
         return ok(userlist.render(UserList));
 

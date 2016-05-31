@@ -15,7 +15,12 @@ import views.html.hr;
 
 public class HrController extends Controller {
 
+    private void init() {
+        flash("menu", "hr");
+    }
+
     public Result index() {
+        init();
 
         ExpressionList<Card> temp = Card.find.where();
         temp = temp.eq("grade", null);

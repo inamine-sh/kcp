@@ -38,6 +38,10 @@ import views.html.*;
  * application's home page.
  */
 public class AdminController extends Controller {
+    private void init() {
+        flash("menu", "admin");
+    }
+
     @Inject
     private FormFactory formFactory;
 
@@ -48,12 +52,13 @@ public class AdminController extends Controller {
      * path of <code>/</code>.
      */
     public Result index() {
+        init();
 
         return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class)));
-
     }
 
     public Result newUser() {
+        init();
 
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
         Form<User> userForm = formFactory.form(User.class).bind(params);
@@ -70,6 +75,7 @@ public class AdminController extends Controller {
     }
 
     public Result newBusho() {
+        init();
 
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
         Form<Busho> bushoForm = formFactory.form(Busho.class).bind(params);
@@ -82,6 +88,7 @@ public class AdminController extends Controller {
     }
 
     public Result newCategory() {
+        init();
 
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
         Form<Category> categoryForm = formFactory.form(Category.class).bind(params);
