@@ -1,62 +1,193 @@
-@(userlist: List[User])
+@(userForm: Form[User], bushoForm: Form[Busho], categoryForm: Form[Category])
+
 @import helper._
 
+@head = {
 <style>
-table, th, td {
-    border-collapse: collapse;
-    border: solid 1px;
-    padding: 0.5em;
-}
-
-th {
-    background: #ffff99
+.tag {
+    margin: 2px;
+    display: inline-block;
 }
 </style>
+}
 
 
-@template("現在登録されているユーザー一覧") {
-<h1>ユーザー一覧</h1>
+@template("現在登録されているユーザー一覧", head) {
 
-<table>
-    <tr>
-        <th>ユーザーID</th>
-        <th>部署</th>
-        <th>名前</th>
-        <th>読み仮名</th>
-        <th>権限</th>
-    </tr>
-    @for(list <- userlist) {
-    <tr>
-        <th>@list.userId</th>
-        <td>@list.bushoId.bushoName</td>
-        <td><a href="@routes.UserController.index(list.userId)">@list.getName</a></td>
-        <td>@list.getYomiName</td>
-        <td>@list.kengen.kengenName</td>
-    </tr>
-    }
-</table>
 
-            @helper.form(routes.AdminController.newUser()) {
-                    <input type="text" name="userId" placeholder="ユーザーID">
-                    <input type="text" name="password" placeholder="パスワード">
-                    <input type="text" name="last" placeholder="姓">
-                    <input type="text" name="middle" placeholder="ミドル">
-                    <input type="text" name="first" placeholder="名">
-                    <input type="text" name="yomiLast" placeholder="読み仮名（姓）">
-                    <input type="text" name="yomiMiddle" placeholder="読み仮名（ミドル）">
-                    <input type="text" name="yomiFirst" placeholder="読み仮名（名）">
-                    <FORM>
-                    <SELECT name="bushoId">
-                    <OPTION value="1">人事部</OPTION>
-                    <OPTION value="2">経理部</OPTION>
-                    </SELECT>
-                    <SELECT name="kengen">
-                    <OPTION value="1">一般</OPTION>
-                    <OPTION value="2">人事</OPTION>
-                    <OPTION value="3">経理</OPTION>
-                    </SELECT>
-                    <button type="submit" class="btn btn-primary control-label">新規作成</button>
-                    </FORM>
-            }
+<h1>管理ページ</h1>
+
+<h2>ユーザー一覧</h2>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ユーザーID</th>
+                    <th>部署</th>
+                    <th>名前</th>
+                    <th>読み仮名</th>
+                    <th>権限</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(user <- User.find.all()) {
+                    <tr>
+                        <td>@user.userId</td>
+                        <td>@user.bushoId.bushoName</td>
+                        <td><a href="@routes.UserController.index(user.userId)">@user.getName</a></td>
+                        <td>@user.getYomiName</td>
+                        <td>@user.kengen.kengenName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+
+    <div class="panel-footer">
+
+        @helper.form(routes.AdminController.newUser(), 'class -> "form-horizontal") {
+            <div class="form-group">
+                <label class="col-sm-1 control-label">ID</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("userId").name" placeholder="ユーザーID" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label">パスワード</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("password").name" placeholder="パスワード" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+
+                <label class="col-sm-1 control-label">姓</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("last").name" placeholder="姓" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label">ミドル</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("middle").name" placeholder="ミドル" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label">名</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("first").name" placeholder="名" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">読み仮名(姓)</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("yomiLast").name" placeholder="読み仮名(姓)" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label">読み仮名(ミドル)</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("yomiMiddle").name" placeholder="読み仮名(ミドル)" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label">読み仮名(名)</label>
+                <div class="col-sm-2">
+                    <input type="text" name="@userForm("yomiFirst").name" placeholder="読み仮名(名)" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 control-label">部署</label>
+                <div class="col-sm-2">
+                    <select name="@userForm("bushoId.id").name" class="form-control">
+                        @for(busho <- Busho.find.all()) {
+                            <option value="@busho.id">@busho.bushoName</option>
+                        }
+                    </select>
+                </div>
+
+
+
+                <label class="col-sm-1 control-label">権限</label>
+                <div class="col-sm-2">
+                    <select name="@userForm("kengen.id").name" class="form-control">
+                        @for(kengen <- Kengen.find.all()) {
+                            <option value="@kengen.id">@kengen.kengenName</option>
+                        }
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1 text-right">
+                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+
+
+<h2>部署一覧</h2>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        @for(busho <- Busho.find.all()) {
+            <div class="tag">
+                @busho.bushoName
+            </div>
+        }
+    </div>
+
+    <div class="panel-footer">
+        @helper.form(routes.AdminController.newBusho(), 'class -> "form-horizontal") {
+            <div class="form-group">
+                <label class="col-sm-1 control-label">部署名</label>
+                <div class="col-sm-3">
+                    <input type="text" name="@bushoForm("bushoName").name" class="form-control" placeholder="部署名">
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+<h2>カテゴリ一覧</h2>
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        @for(category <- Category.find.all()) {
+            <div class="tag">
+                @helper.form(routes.BoardController.search()) {
+                    <input type="hidden" name="category" value="@category.id">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        @category.categoryName
+                    </button>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="panel-footer">
+        @helper.form(routes.AdminController.newCategory(), 'class -> "form-horizontal") {
+            <div class="form-group">
+                <label class="col-sm-1 control-label">カテゴリ名</label>
+                <div class="col-sm-3">
+                    <input type="text" name="@categoryForm("categoryName").name" class="form-control" placeholder="カテゴリ名">
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
 }
 

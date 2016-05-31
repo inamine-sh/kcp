@@ -45,4 +45,8 @@ POST    /card/view/:cardId/set_grade                    controllers.CardControll
 GET     /userlist                   controllers.UserlistController.index
 
 GET     /admin                      controllers.AdminController.index
-POST    /admin                      controllers.AdminController.newUser
+POST    /admin/newUser              controllers.AdminController.newUser
+POST    /admin/newBusho             controllers.AdminController.newBusho
+POST    /admin/newCategory          controllers.AdminController.newCategory
+
+

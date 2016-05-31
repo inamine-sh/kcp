@@ -29,6 +29,8 @@ import models.Category;
 import models.Kengen;
 import models.User;
 
+import utils.Common;
+
 import views.html.*;
 
 /**
@@ -46,32 +48,47 @@ public class AdminController extends Controller {
      * path of <code>/</code>.
      */
     public Result index() {
-        /*
-         * File file = new File("conf/sample.sql"); return
-         * ok(userlist.render(file, formFactory.form(User.class)));
-         */
-        List<User> UserList = User.find.all();
-        return ok(admin.render(UserList));
+
+        return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class)));
 
     }
 
     public Result newUser() {
 
-        Map<String, String[]> params = request().body().asFormUrlEncoded();
+        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+        Form<User> userForm = formFactory.form(User.class).bind(params);
 
-        User user = new User();
-        user.userId = params.get("userId")[0];
-        user.password = params.get("password")[0];
-        user.last = params.get("last")[0];
-        user.middle = params.get("middle")[0];
-        user.first = params.get("first")[0];
-        user.yomiLast = params.get("yomiLast")[0];
-        user.yomiMiddle = params.get("yomiMiddle")[0];
-        user.yomiFirst = params.get("yomiFirst")[0];
-        user.bushoId = Busho.find.where().eq("id", params.get("bushoId")[0]).findUnique();
-        user.kengen = Kengen.find.where().eq("id", params.get("kengen")[0]).findUnique();
+//        if(userForm.hasErrors()) {
+//            return badRequest(admin.render(userForm, formFactory.form(Busho.class), formFactory.form(Category.class)));
+//        }
 
-        user.insert();
+        User user = userForm.get();
+
+        user.save();
+
+        return redirect(routes.AdminController.index());
+    }
+
+    public Result newBusho() {
+
+        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+        Form<Busho> bushoForm = formFactory.form(Busho.class).bind(params);
+
+        Busho busho = bushoForm.get();
+
+        busho.save();
+
+        return redirect(routes.AdminController.index());
+    }
+
+    public Result newCategory() {
+
+        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+        Form<Category> categoryForm = formFactory.form(Category.class).bind(params);
+
+        Category category = categoryForm.get();
+
+        category.save();
 
         return redirect(routes.AdminController.index());
     }
