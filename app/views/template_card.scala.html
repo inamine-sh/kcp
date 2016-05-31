@@ -1,5 +1,7 @@
 @(card: Card)
 
+@import java.util.Date
+
 
 <article class="card">
     <div class="panel panel-default">
@@ -9,7 +11,7 @@
                     <a href="@routes.CardController.view(card.id)" class="card-title">@card.title</a>
                     @if(card.kanshaDate != null) {
                         <div class="card-date">
-                            @card.kanshaDate の出来事
+                            @("%tF" format card.kanshaDate) の出来事
                         </div>
                     }
                 </div>
