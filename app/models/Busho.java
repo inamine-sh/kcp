@@ -25,7 +25,7 @@ public class Busho extends Model {
 
     // 部署名
     @Required
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String bushoName;
 
 

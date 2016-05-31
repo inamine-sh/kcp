@@ -25,7 +25,7 @@ public class Category extends Model {
 
     // カテゴリ名
     @Required
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String categoryName;
 
 

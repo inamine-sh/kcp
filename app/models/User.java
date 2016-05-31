@@ -26,7 +26,7 @@ public class User extends Model {
 
     // ユーザーID
     @Required
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String userId;
 
     // パスワード

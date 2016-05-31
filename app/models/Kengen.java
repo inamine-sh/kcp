@@ -25,7 +25,7 @@ public class Kengen extends Model {
 
     // 権限名
     @Required
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String kengenName;
 
     // 権限ランク
