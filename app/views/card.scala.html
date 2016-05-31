@@ -2,6 +2,7 @@
 
 @import org.joda.time.DateTime
 @import org.joda.time.format._
+@import java.util.Date
 
 @template("Card Detail") {
 
@@ -15,7 +16,7 @@
                     <h1 class="card-title">@card.title</h1>
                     @if(card.kanshaDate != null) {
                         <div class="card-date">
-                            @card.kanshaDate の出来事
+                            @("%tF" format card.kanshaDate) の出来事
                         </div>
                     }
                 </div>
