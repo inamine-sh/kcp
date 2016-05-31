@@ -3,72 +3,83 @@
 @import helper._
 
 @template("掲示板") {
-				<h1>掲示板</h1>
-				<br>
 
+<h1>掲示板</h1>
 
+@helper.form(routes.BoardController.search()) {
 
-                @helper.form(routes.BoardController.search()) {
+    <div class="col-sm-3">
+        <h2>検索</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>すべてのカードから検索</p>
 
-                <div class="col-sm-3">
-	                <h2>検索</h2>
-	                <div class="panel panel-default">
-	                    <div class="panel-body">
-	                        <p>すべてのカードを検索</p>
+                <div class="clearfix" style="margin:1em 0em;">
+                    <label class="control-label">誰から</label><br>
+                    <select class="form-control" name="fromuser">
+                        <option value="-1"></option>
+                        @for(user <- userList) {
+                            <option value="@user.id">@user.getName</option>
+                        }
+                    </select>
 
-		                    <label class="col-sm-6 control-label">誰から</label>
-		                        <select class="form-control" name="fromuser">
-		                        <option value="-1">From</option>
-		                        @for(user <- userList) {
-		                        <option value="@user.id">@user.getName</option>
-		                        }
-		                        </select>
+                    <label class="control-label">誰へ</label><br>
+                    <select class="form-control" name="touser">
+                        <option value="-1"></option>
+                        @for(user <- userList) {
+                            <option value="@user.id">@user.getName</option>
+                        }
+                    </select>
 
-		                    <label class="col-sm-6 control-label">誰へ</label>
-		                    <select class="form-control" name="touser">
-		                        <option value="-1">To</option>
-		                        @for(user <- userList) {
-		                        <option value="@user.id">@user.getName</option>
-		                        }
-		                    </select>
+                    <label class="control-label">カテゴリ</label><br>
+                    <select class="form-control" name="category">
+                        <option value="-1"></option>
+                        @for(category <- categoryList) {
+                            <option value="@category.id">@category.categoryName</option>
+                        }
+                    </select>
 
-		                    <label class="col-sm-6 control-label">カテゴリ</label>
-		                    <select class="form-control" name="category">
-		                    <option value="-1">Category</option>
-		                        @for(category <- categoryList) {
-		                        <option value="@category.id">@category.categoryName</option>
-		                        }
-		                        </select>
+                    <label class="control-label">開始日</label><br>
+                    <input type="date" name="begin" value="" class="col-sm-5 form-control"/>
+                    <label class="control-label">終了日</label><br>
+                    <input type="date" name="end" value="" class="col-sm-5 form-control"/>
 
-		                    <label class="col-sm-6 control-label">開始日</label><br>
-		                    <input type="date" name="begin" value="" class="col-sm-5 form-control"/>
-		                    <label class="col-sm-6 control-label">終了日</label>
-		                    <input type="date" name="end" value="" class="col-sm-5 form-control"/>
-
-		                    <button type="submit" class="col-sm-12 btn btn-primary control-label">検索</button>
-	                       </div>
-	                    </div>
-	                </div>
-
-                }
-
-                <div class="col-sm-9">
-
-	                @if(daihyoList != null){
-	                <h2>代表的なカード</h2>
-	                    @for(card2 <- daihyoList) {
-	                        @template_card(card2)
-	                    }
-	                }
-	                @if(daihyoList != null){
-	                    <h2>掲載中</h2>
-	                }else{
-	                <h2>検索結果</h2>
-	                }
-	                @for(card <- cardList) {
-	                @template_card(card)
-                }
                 </div>
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary control-label">検索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 }
 
+<div class="col-sm-9">
 
+    @if(daihyoList != null){
+        <h2>代表的なカード</h2>
+
+        @if(daihyoList.length == 0) {
+            @template_nocard()
+        }
+
+        @for(card2 <- daihyoList) {
+            @template_card(card2)
+        }
+    }
+    @if(daihyoList != null){
+        <h2>掲載中</h2>
+    }else{
+        <h2>検索結果</h2>
+    }
+
+    @if(cardList.length == 0) {
+        @template_nocard()
+    }
+    @for(card <- cardList) {
+        @template_card(card)
+    }
+</div>
+
+}
