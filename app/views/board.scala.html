@@ -1,4 +1,4 @@
-@(cardList: List[Card], userList: List[User], categoryList: List[Category], daihyoList: List[Card])
+@(cardList: List[Card], userList: List[User], categoryList: List[Category], daihyoList: List[Card], params: Map[String, String] = null )
 
 @import helper._
 
@@ -17,32 +17,32 @@
                 <div class="clearfix" style="margin:1em 0em;">
                     <label class="control-label">誰から</label><br>
                     <select class="form-control" name="fromuser">
-                        <option value="-1"></option>
+                        <option value=""></option>
                         @for(user <- userList) {
-                            <option value="@user.id">@user.getName</option>
+                            <option value="@user.id"@if(user.id.toString == params.get("fromuser")){ selected}>@user.getName</option>
                         }
                     </select>
 
                     <label class="control-label">誰へ</label><br>
                     <select class="form-control" name="touser">
-                        <option value="-1"></option>
+                        <option value=""></option>
                         @for(user <- userList) {
-                            <option value="@user.id">@user.getName</option>
+                            <option value="@user.id"@if(user.id.toString == params.get("touser")){ selected}>@user.getName</option>
                         }
                     </select>
 
                     <label class="control-label">カテゴリ</label><br>
                     <select class="form-control" name="category">
-                        <option value="-1"></option>
+                        <option value=""></option>
                         @for(category <- categoryList) {
-                            <option value="@category.id">@category.categoryName</option>
+                            <option value="@category.id"@if(category.id.toString == params.get("category")){ selected}>@category.categoryName</option>
                         }
                     </select>
 
                     <label class="control-label">開始日</label><br>
-                    <input type="date" name="begin" value="" class="col-sm-5 form-control"/>
+                    <input type="date" name="begin" value="@params.get("begin")" class="col-sm-5 form-control"/>
                     <label class="control-label">終了日</label><br>
-                    <input type="date" name="end" value="" class="col-sm-5 form-control"/>
+                    <input type="date" name="end" value="@params.get("end")" class="col-sm-5 form-control"/>
 
                 </div>
 

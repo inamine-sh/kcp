@@ -9,7 +9,7 @@ public class Common {
         Map<String, String> params = new HashMap<>();
 
         for(Map.Entry<String, String[]> getParam: getParams.entrySet()) {
-            if(getParam != null) {
+            if(getParam != null && !getParam.getValue()[0].equals("")) {
                 params.put(getParam.getKey(), getParam.getValue()[0]);
             }
         }
