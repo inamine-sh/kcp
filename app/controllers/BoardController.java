@@ -14,11 +14,14 @@ import org.apache.commons.lang3.time.DateUtils;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebeaninternal.api.BindParams.Param;
 
+import controllers.Secured.General;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.*;
 
+@Security.Authenticated(General.class)
 public class BoardController extends Controller{
 
     private void init() {

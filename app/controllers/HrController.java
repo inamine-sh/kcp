@@ -6,13 +6,16 @@ import java.util.Map;
 
 import com.avaje.ebean.ExpressionList;
 
+import controllers.Secured.Hr;
 import models.Card;
 import models.Category;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.html.hr;
 
+@Security.Authenticated(Hr.class)
 public class HrController extends Controller {
 
     private void init() {

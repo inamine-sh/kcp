@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlUpdate;
 
+import controllers.Secured.General;
 import models.Busho;
 import models.Category;
 import models.Kengen;
@@ -35,6 +36,8 @@ import views.html.*;
  * This controller contains an action to handle HTTP requests to the
  * application's home page.
  */
+
+@Security.Authenticated(General.class)
 public class UserlistController extends Controller {
     @Inject
     private FormFactory formFactory;

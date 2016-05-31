@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import com.avaje.ebean.Ebean;
 
+import controllers.Secured.General;
 import models.Busho;
 import models.Card;
 import models.Category;
@@ -25,6 +26,8 @@ import views.html.*;
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
+
+@Security.Authenticated(General.class)
 public class CardController extends Controller {
     @Inject
     private FormFactory formFactory;

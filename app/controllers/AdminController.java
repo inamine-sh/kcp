@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlUpdate;
 
+import controllers.Secured.Admin;
 import models.Busho;
 import models.Category;
 import models.Kengen;
@@ -37,6 +38,8 @@ import views.html.*;
  * This controller contains an action to handle HTTP requests to the
  * application's home page.
  */
+
+@Security.Authenticated(Admin.class)
 public class AdminController extends Controller {
     private void init() {
         flash("menu", "admin");
