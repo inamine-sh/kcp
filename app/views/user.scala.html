@@ -23,9 +23,14 @@
 
 <div  class="col-sm-8">
 
+@if(cards.length == 0) {
+    @template_nocard()
+}
+
 @for(card <- cards) {
     @template_card(card)
 }
+
 </div>
 
 @card_new()

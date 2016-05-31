@@ -8,6 +8,10 @@
 
 <h2>未評価カード一覧</h2>
 
+@if(cardList.length == 0) {
+    @template_nocard()
+}
+
 @for(card <- cardList) {
     @template_card(card)
 }
