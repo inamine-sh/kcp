@@ -67,14 +67,14 @@
         @for(comment <- comments) {
             <li class="comment list-group-item clearfix">
                 <div class="clearfix">
-                    <div class="col-md-2 text-right">
+                    <div class="col-sm-2 text-right">
                         @comment.fromUser.getName
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-sm-8">
                         @comment.message
                     </div>
                     @if(comment.fromUser == user || 2 <= user.kengen.rank){
-                        <div class="col-md-1">
+                        <div class="col-sm-1">
                             @helper.form(routes.CardController.deleteComment(card.id, comment.id)) {
                                 <button type="submit" class="btn btn-danger control-label" onclick='return confirm("削除しますか？");'>削除</button>
                             }
@@ -88,13 +88,13 @@
         }
         <li class="comment list-group-item clearfix">
             @helper.form(routes.CardController.newComment(card.id)) {
-                <div class="col-md-2 text-right">
+                <div class="col-sm-2 text-right">
                     @user.getName
                 </div>
-                <div class="col-md-8">
+                <div class="col-sm-8">
                     <input type="text" name="message" class="form-control" placeholder="コメント">
                 </div>
-                <div class="col-md-1">
+                <div class="col-sm-1">
                     <button type="submit" class="btn btn-primary control-label">返信</button>
                 </div>
             }
