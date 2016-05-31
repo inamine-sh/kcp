@@ -36,7 +36,7 @@ public class DatabaseController extends Controller {
         String sql = "";
 
         try{
-            File file = new File("conf/sample.sql");
+            File file = new File("conf/init.sql");
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 
             String str;
