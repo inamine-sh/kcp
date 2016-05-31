@@ -26,9 +26,9 @@
             <thead>
                 <tr>
                     <th>ユーザーID</th>
-                    <th>部署</th>
                     <th>名前</th>
                     <th>読み仮名</th>
+                    <th>部署</th>
                     <th>権限</th>
                 </tr>
             </thead>
@@ -36,9 +36,9 @@
                 @for(user <- User.find.all()) {
                     <tr>
                         <td>@user.userId</td>
-                        <td>@user.bushoId.bushoName</td>
                         <td><a href="@routes.UserController.index(user.userId)">@user.getName</a></td>
                         <td>@user.getYomiName</td>
+                        <td>@user.bushoId.bushoName</td>
                         <td>@user.kengen.kengenName</td>
                     </tr>
                 }
