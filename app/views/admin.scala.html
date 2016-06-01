@@ -29,6 +29,7 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
+                    <th></th>
                     <th>ユーザーID</th>
                     <th>名前</th>
                     <th>読み仮名</th>
@@ -39,6 +40,11 @@
             <tbody>
                 @for(user <- User.find.all()) {
                     <tr>
+                        <td style="text-align: center;">
+                            <a href="@routes.AdminController.viewEditUser(user.id)" class="btn btn-primary btn-xs control-label">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                        </td>
                         <td>@user.userId</td>
                         <td><a href="@routes.UserController.index(user.userId)">@user.getName</a></td>
                         <td>@user.getYomiName</td>
@@ -48,50 +54,49 @@
                 }
             </tbody>
         </table>
-
-
     </div>
 
     <div class="panel-footer">
 
-        @helper.form(routes.AdminController.newUser(), 'class -> "form-horizontal") {
+        @helper.form(routes.AdminController.editUser(), 'class -> "form-horizontal") {
+            <input type="hidden" name="@userForm("id").name" value="@editUser.id">
             <div class="form-group">
                 <label class="col-sm-1 control-label">ID</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("userId").name" placeholder="ユーザーID" class="form-control">
+                    <input type="text" name="@userForm("userId").name" placeholder="ユーザーID" class="form-control" value="@editUser.userId">
                 </div>
                 <label class="col-sm-1 control-label">パスワード</label>
                 <div class="col-sm-2">
-                    <input type="password" name="@userForm("password").name" placeholder="パスワード" class="form-control">
+                    <input type="password" name="@userForm("password").name" placeholder="パスワード" class="form-control" value="@editUser.password">
                 </div>
             </div>
             <div class="form-group">
 
                 <label class="col-sm-1 control-label">姓</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("last").name" placeholder="姓" class="form-control">
+                    <input type="text" name="@userForm("last").name" placeholder="姓" class="form-control" value="@editUser.last">
                 </div>
                 <label class="col-sm-1 control-label">ミドル</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("middle").name" placeholder="ミドル" class="form-control">
+                    <input type="text" name="@userForm("middle").name" placeholder="ミドル" class="form-control" value="@editUser.middle">
                 </div>
                 <label class="col-sm-1 control-label">名</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("first").name" placeholder="名" class="form-control">
+                    <input type="text" name="@userForm("first").name" placeholder="名" class="form-control" value="@editUser.first">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">読み仮名(姓)</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("yomiLast").name" placeholder="読み仮名(姓)" class="form-control">
+                    <input type="text" name="@userForm("yomiLast").name" placeholder="読み仮名(姓)" class="form-control" value="@editUser.yomiLast">
                 </div>
                 <label class="col-sm-1 control-label">読み仮名(ミドル)</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("yomiMiddle").name" placeholder="読み仮名(ミドル)" class="form-control">
+                    <input type="text" name="@userForm("yomiMiddle").name" placeholder="読み仮名(ミドル)" class="form-control" value="@editUser.yomiMiddle">
                 </div>
                 <label class="col-sm-1 control-label">読み仮名(名)</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("yomiFirst").name" placeholder="読み仮名(名)" class="form-control">
+                    <input type="text" name="@userForm("yomiFirst").name" placeholder="読み仮名(名)" class="form-control" value="@editUser.yomiFirst">
                 </div>
             </div>
 
@@ -100,7 +105,11 @@
                 <div class="col-sm-2">
                     <select name="@userForm("bushoId.id").name" class="select2 form-control">
                         @for(busho <- Busho.find.all()) {
-                            <option value="@busho.id">@busho.bushoName</option>
+                            @if(editUser.bushoId == busho) {
+                                <option value="@busho.id" selected>@busho.bushoName</option>
+                            } else {
+                                <option value="@busho.id">@busho.bushoName</option>
+                            }
                         }
                     </select>
                 </div>
@@ -111,7 +120,11 @@
                 <div class="col-sm-2">
                     <select name="@userForm("kengen.id").name" class="select2 form-control">
                         @for(kengen <- Kengen.find.all()) {
-                            <option value="@kengen.id">@kengen.kengenName</option>
+                            @if(editUser.kengen == kengen) {
+                                <option value="@kengen.id" selected>@kengen.kengenName</option>
+                            } else {
+                                <option value="@kengen.id">@kengen.kengenName</option>
+                            }
                         }
                     </select>
                 </div>
@@ -120,7 +133,11 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-1 text-right">
-                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                    @if(flash.get("status") == "user") {
+                        <button type="submit" class="btn btn-primary control-label">変更</button>
+                    } else {
+                        <button type="submit" class="btn btn-primary control-label">追加</button>
+                    }
                 </div>
 
             </div>

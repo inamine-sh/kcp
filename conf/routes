@@ -45,9 +45,10 @@ POST    /card/view/:cardId/set_grade                    controllers.CardControll
 GET     /userlist                   controllers.UserlistController.index
 
 GET     /admin                      controllers.AdminController.index
-POST    /admin/user/new             controllers.AdminController.newUser
+
+GET     /admin/user/edit/:id        controllers.AdminController.viewEditUser(id: Integer)
 POST    /admin/user/edit            controllers.AdminController.editUser
-POST    /admin/user/delete          controllers.AdminController.deleteUser
+GET     /admin/user/delete          controllers.AdminController.deleteUser(id: Integer)
 
 GET     /admin/busho/edit/:id       controllers.AdminController.viewEditBusho(id: Integer)
 POST    /admin/busho/edit           controllers.AdminController.editBusho

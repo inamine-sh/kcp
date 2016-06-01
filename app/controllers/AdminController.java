@@ -63,30 +63,35 @@ public class AdminController extends Controller {
         return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class), new User(), new Busho(), new Category()));
     }
 
-    public Result newUser() {
+    public Result viewEditUser(int userId) {
         init();
 
-        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
-        Form<User> userForm = formFactory.form(User.class).bind(params);
+        flash("status", "user");
 
-//        if(userForm.hasErrors()) {
-//            return badRequest(admin.render(userForm, formFactory.form(Busho.class), formFactory.form(Category.class)));
-//        }
+        User user = User.find.where().eq("id", userId).findUnique();
 
-        User user = userForm.get();
+        return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class), user, new Busho(), new Category()));
 
-        user.save();
-
-        return redirect(routes.AdminController.index());
     }
 
     public Result editUser() {
         init();
 
-        return TODO;
+        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+        Form<User> userForm = formFactory.form(User.class).bind(params);
+
+        User user = userForm.get();
+
+        if(user.id == null) {
+            user.save();
+        } else {
+            user.update();
+        }
+
+        return redirect(routes.AdminController.index());
     }
 
-    public Result deleteUser() {
+    public Result deleteUser(int userId) {
         init();
 
         return TODO;
