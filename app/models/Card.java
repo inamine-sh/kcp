@@ -53,6 +53,8 @@ public class Card extends Model {
 
     // カテゴリID
     @ManyToOne
+    @Required
+    @Column(nullable = false)
     public Category category;
 
     // タイトル
