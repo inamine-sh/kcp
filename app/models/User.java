@@ -94,7 +94,7 @@ public class User extends Model {
     public List<Comment> comments = new ArrayList<>();
 
     public String getName() {
-        if (middle.isEmpty()) {
+        if (middle == null || middle.isEmpty()) {
             return last + " " + first;
         } else {
             return last + " " + middle + " " + first;
@@ -102,7 +102,7 @@ public class User extends Model {
     }
 
     public String getYomiName() {
-        if (middle.isEmpty()) {
+        if (yomiMiddle == null || yomiMiddle.isEmpty()) {
             return yomiLast + " " + yomiFirst;
         } else {
             return yomiLast + " " + yomiMiddle + " " + yomiFirst;
