@@ -33,7 +33,7 @@ GET     /logout                     controllers.LoginController.logout
 
 GET     /hr                         controllers.HrController.index
 
-POST    /card/new                                       controllers.CardController.newCard
+#POST    /card/new                                       controllers.CardController.newCard
 POST    /card/edit                                      controllers.CardController.editCard
 GET     /card/view/:id                                  controllers.CardController.view(id: Integer)
 POST    /card/view/:id                                  controllers.CardController.view(id: Integer)

@@ -81,8 +81,8 @@ public class Card extends Model {
 
     // 以下は人事使用
     // 感謝カードグレード
-    @MinLength(1)
-    @MaxLength(5)
+    //@MinLength(1)
+    //@MaxLength(5)
     public Integer grade;
 
     // 掲示板掲載期限

@@ -38,6 +38,7 @@ public class UserController extends Controller {
         flash("submenu", "inbox");
 
         User viewUser  = User.find.where().eq("userId", userId).findUnique();
+        flash("viewUser", Integer.toString(viewUser.id));
 
         List<Card> cards = Card.find.where().eq("toUser", viewUser).findList();
 
@@ -48,6 +49,7 @@ public class UserController extends Controller {
         flash("submenu", "outbox");
 
         User viewUser  = User.find.where().eq("userId", userId).findUnique();
+        flash("viewUser", Integer.toString(viewUser.id));
 
         List<Card> cards = Card.find.where().eq("fromUser", viewUser).findList();
 

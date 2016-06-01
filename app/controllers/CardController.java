@@ -19,7 +19,7 @@ import models.User;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
-
+import utils.Common;
 import views.html.*;
 
 /**
@@ -48,34 +48,31 @@ public class CardController extends Controller {
         return ok(card.render(user, card1, comments));
     }
 
-    public Result newCard() {
+    public Result editCard() {
         User user = User.find.where().eq("id", session("user_id")).findUnique();
-        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
 
-        // パラメータを受け取る
-        Map<String, String[]> params = request().body().asFormUrlEncoded();
+        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+        params.put("fromUser.id", Integer.toString(user.id));
+        params.put("fromBusho.id", Integer.toString(user.bushoId.id));
+        params.put("toBusho.id", Integer.toString(User.find.where().eq("id", params.get("toUser.id")).findUnique().bushoId.id));
 
-        Card card1 = new Card();
+        Form<Card> cardForm = formFactory.form(Card.class).bind(params);
 
         try {
-            card1.fromUser = user;
-            card1.toUser = User.find.where().eq("id", params.get("toUserId")[0]).findUnique();
-            card1.fromBusho = card1.fromUser.bushoId;
-            card1.toBusho = card1.toUser.bushoId;
-            card1.category = !params.get("categoryId")[0].equals("") ? Category.find.where().eq("id", params.get("categoryId")[0]).findUnique() : null;
-            card1.kanshaDate = !params.get("kanshaDate")[0].equals("") ? sdfDay.parse( params.get("kanshaDate")[0] ) : null;
-            card1.title = !params.get("title")[0].equals("") ? params.get("title")[0] : null;
-            card1.message = params.get("message")[0];
+            Card card = cardForm.get();
 
-            card1.save();
-        }catch (Exception e) {
-            e.printStackTrace();
+            if(card.id == null) {
+                card.save();
+            } else {
+                card.update();
+
+                return redirect(routes.CardController.view(card.id));
+            }
+
+        } catch (Exception e) {
         }
-        return redirect(routes.UserController.outbox(user.userId));
-    }
 
-    public Result editCard() {
-        return TODO;
+        return redirect(routes.UserController.outbox(user.userId));
     }
 
     public Result newComment(int id) {
@@ -92,8 +89,6 @@ public class CardController extends Controller {
         }catch (Exception e){
 
         }
-
-
 
         return redirect(routes.CardController.view(id));
     }

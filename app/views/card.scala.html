@@ -11,6 +11,7 @@
 
 
 <article class="card">
+
     <div class="panel panel-default">
         <div class="panel-body">
             <header class="clearfix">
@@ -47,8 +48,13 @@
             <hr>
             <footer>
                 <div class="pull-left">
+                    @if(card.fromUser == user) {
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-card">
+                            <span class="glyphicon glyphicon-edit"></span>編集
+                        </a>
+                    }
                     @if(card.category != null) {
-                        @helper.form(routes.BoardController.search()) {
+                        @helper.form(routes.BoardController.search(), 'style -> "display: inline-block;") {
                             <input type="hidden" name="category" value="@card.category.id">
                             <button type="submit" class="btn btn-default">
                                 <span class="glyphicon glyphicon-tag"></span>
@@ -130,8 +136,7 @@
 </article>
 
 
-
-
+@template_editcard(card)
 
 
 
