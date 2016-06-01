@@ -66,13 +66,17 @@ public class AdminController extends Controller {
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
         Form<User> userForm = formFactory.form(User.class).bind(params);
 
-//        if(userForm.hasErrors()) {
-//            return badRequest(admin.render(userForm, formFactory.form(Busho.class), formFactory.form(Category.class)));
-//        }
+//      if(userForm.hasErrors()) {
+//      return badRequest(admin.render(userForm, formFactory.form(Busho.class), formFactory.form(Category.class)));
+//  }
 
-        User user = userForm.get();
+        try {
+            User user = userForm.get();
 
-        user.save();
+            user.save();
+        }catch (Exception e) {
+
+        }
 
         return redirect(routes.AdminController.index());
     }
@@ -80,12 +84,17 @@ public class AdminController extends Controller {
     public Result newBusho() {
         init();
 
+
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
         Form<Busho> bushoForm = formFactory.form(Busho.class).bind(params);
 
-        Busho busho = bushoForm.get();
+        try {
+            Busho busho = bushoForm.get();
 
-        busho.save();
+            busho.save();
+        }catch (Exception e) {
+
+        }
 
         return redirect(routes.AdminController.index());
     }
@@ -96,9 +105,13 @@ public class AdminController extends Controller {
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
         Form<Category> categoryForm = formFactory.form(Category.class).bind(params);
 
-        Category category = categoryForm.get();
+        try{
+            Category category = categoryForm.get();
 
-        category.save();
+            category.save();
+        }catch (Exception e) {
+
+        }
 
         return redirect(routes.AdminController.index());
     }
