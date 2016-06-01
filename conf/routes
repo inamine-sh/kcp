@@ -49,12 +49,12 @@ POST    /admin/user/new             controllers.AdminController.newUser
 POST    /admin/user/edit            controllers.AdminController.editUser
 POST    /admin/user/delete          controllers.AdminController.deleteUser
 
-POST    /admin/busho/new            controllers.AdminController.newBusho
+GET     /admin/busho/edit/:id       controllers.AdminController.viewEditBusho(id: Integer)
 POST    /admin/busho/edit           controllers.AdminController.editBusho
-POST    /admin/busho/delete         controllers.AdminController.deleteBusho
+GET     /admin/busho/delete/:id     controllers.AdminController.deleteBusho(id: Integer)
 
 GET     /admin/category/edit/:id    controllers.AdminController.viewEditCategory(id: Integer)
 POST    /admin/category/edit        controllers.AdminController.editCategory
-GET     /admin/category/delete      controllers.AdminController.deleteCategory(id: Integer)
+GET     /admin/category/delete/:id  controllers.AdminController.deleteCategory(id: Integer)
 
 

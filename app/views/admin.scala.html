@@ -133,31 +133,41 @@
 @if(flash.get("status") == "all" || flash.get("status") == "busho") {
 
 <h2>部署一覧</h2>
-
 <div class="panel panel-default">
 
     <div class="panel-body">
-        @for(busho <- Busho.find.where().ne("id", 1).findList()) {
+        @for(busho <- Busho.find.where().ne("id", 1).findList() ) {
             <div class="tag">
-                @busho.bushoName
+                <a href="@routes.AdminController.deleteBusho(busho.id)" class="btn btn-danger btn-xs control-label">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+                <a href="@routes.AdminController.viewEditBusho(busho.id)" class="btn btn-primary btn-xs control-label">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+
+                <label class="control-label">@busho.bushoName</label>
             </div>
         }
     </div>
 
     <div class="panel-footer">
-        @helper.form(routes.AdminController.newBusho(), 'class -> "form-horizontal") {
+        @helper.form(routes.AdminController.editBusho(), 'class -> "form-horizontal") {
+            <input type="hidden" name="@bushoForm("id").name" value="@editBusho.id">
             <div class="form-group">
                 <label class="col-sm-1 control-label">部署名</label>
                 <div class="col-sm-3">
-                    <input type="text" name="@bushoForm("bushoName").name" class="form-control" placeholder="部署名">
+                    <input type="text" name="@bushoForm("bushoName").name" class="form-control" placeholder="部署名" value="@editBusho.bushoName">
                 </div>
                 <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                    @if(flash.get("status") == "busho") {
+                        <button type="submit" class="btn btn-primary control-label">変更</button>
+                    } else {
+                        <button type="submit" class="btn btn-primary control-label">追加</button>
+                    }
                 </div>
             </div>
         }
     </div>
-
 </div>
 }
 

@@ -93,7 +93,18 @@ public class AdminController extends Controller {
     }
 
 
-    public Result newBusho() {
+    public Result viewEditBusho(int bushoId) {
+        init();
+
+        flash("status", "busho");
+
+        Busho busho = Busho.find.where().eq("id", bushoId).findUnique();
+
+        return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class), new User(), busho, new Category()));
+
+    }
+
+    public Result editBusho() {
         init();
 
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
@@ -101,21 +112,40 @@ public class AdminController extends Controller {
 
         Busho busho = bushoForm.get();
 
-        busho.save();
+        if(busho.id == null) {
+            busho.save();
+        } else {
+            busho.update();
+        }
 
         return redirect(routes.AdminController.index());
     }
 
-    public Result editBusho() {
+    public Result deleteBusho(int bushoId) {
         init();
 
-        return TODO;
-    }
+        List<Card> cards1 = Card.find.where().eq("from_busho_id", bushoId).findList();
+        for(Card card: cards1) {
+            card.fromBusho = Busho.find.where().eq("id", 1).findUnique();
+            card.update();
+        }
 
-    public Result deleteBusho() {
-        init();
+        List<Card> cards2 = Card.find.where().eq("to_busho_id", bushoId).findList();
+        for(Card card: cards2) {
+            card.toBusho = Busho.find.where().eq("id", 1).findUnique();
+            card.update();
+        }
 
-        return TODO;
+        List<User> users = User.find.where().eq("busho_id_id", bushoId).findList();
+        for(User user: users) {
+            user.bushoId = Busho.find.where().eq("id", 1).findUnique();
+            user.update();
+        }
+
+        Busho busho = Busho.find.where().eq("id", bushoId).findUnique();
+        busho.delete();
+
+        return redirect(routes.AdminController.index());
     }
 
 
