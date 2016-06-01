@@ -19,7 +19,7 @@
                 <div class="clearfix" style="margin:1em 0em;">
                     <label class="control-label">誰から</label><br>
                     <select class="select2 form-control" name="fromuser">
-                        <option value=""></option>
+                        <option value="">(未設定)</option>
                         @for(user <- userList) {
                             <option value="@user.id"@if(user.id.toString == params.get("fromuser")){ selected}>@user.getName</option>
                         }
@@ -27,7 +27,7 @@
 
                     <label class="control-label">誰へ</label><br>
                     <select class="select2 form-control" name="touser">
-                        <option value=""></option>
+                        <option value="">(未設定)</option>
                         @for(user <- userList) {
                             <option value="@user.id"@if(user.id.toString == params.get("touser")){ selected}>@user.getName</option>
                         }
@@ -35,7 +35,7 @@
 
                     <label class="control-label">カテゴリ</label><br>
                     <select class="select2 form-control" name="category">
-                        <option value=""></option>
+                        <option value="">(未設定)</option>
                         @for(category <- categoryList) {
                             <option value="@category.id"@if(category.id.toString == params.get("category")){ selected}>@category.categoryName</option>
                         }
