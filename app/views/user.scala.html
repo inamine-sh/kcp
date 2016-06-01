@@ -1,11 +1,12 @@
 @(user: User, cards: List[Card])
 
-@template("User Detail") {
 
+@title = {@user.getName}
 
-<h1 class="pagetitle">
-    @user.getName
-</h1>
+@template(title.toString) {
+
+<h1>@title</h1>
+
 <div class="sidebar col-sm-3">
     <div class="menu list-group">
         <a href="@routes.UserController.inbox(user.userId)" class="list-group-item @if(flash.get("submenu")=="inbox"){active}">受信箱</a>

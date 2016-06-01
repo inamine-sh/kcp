@@ -2,9 +2,11 @@
 
 @import helper._
 
-@template("掲示板") {
+@title = {掲示板}
 
-<h1>掲示板</h1>
+@template(title.toString) {
+
+<h1>@title</h1>
 
 @helper.form(routes.BoardController.search()) {
 

@@ -15,9 +15,13 @@ $(function(){
 
 }
 
-@template("現在登録されているユーザー一覧", head) {
 
-<h1>ユーザー一覧</h1>
+@title = {ユーザー一覧}
+
+@template(title.toString) {
+
+<h1>@title</h1>
+
 <div class="panel panel-default">
     <div class="panel-body">
         <table id="userlist" class="table table-striped table-bordered table-hover">
