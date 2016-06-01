@@ -1,14 +1,16 @@
-@(userForm: Form[User], bushoForm: Form[Busho], categoryForm: Form[Category])
+@(userForm: Form[User], bushoForm: Form[Busho], categoryForm: Form[Category], editUser: User, editBusho: Busho, editCategory: Category)
 
 @import helper._
 
 @head = {
 <style>
 .tag {
+    width: 200px;
     margin: 2px;
     display: inline-block;
 }
 </style>
+
 }
 
 @title = {管理ページ}
@@ -17,6 +19,8 @@
 
 <h1>@title</h1>
 
+
+@if(flash.get("status") == "all" || flash.get("status") == "user") {
 <h2>ユーザー一覧</h2>
 
 <div class="panel panel-default">
@@ -124,14 +128,16 @@
 
     </div>
 </div>
+}
 
+@if(flash.get("status") == "all" || flash.get("status") == "busho") {
 
 <h2>部署一覧</h2>
 
 <div class="panel panel-default">
 
     <div class="panel-body">
-        @for(busho <- Busho.find.all()) {
+        @for(busho <- Busho.find.where().ne("id", 1).findList()) {
             <div class="tag">
                 @busho.bushoName
             </div>
@@ -153,40 +159,49 @@
     </div>
 
 </div>
+}
 
+@if(flash.get("status") == "all" || flash.get("status") == "category") {
 
 <h2>カテゴリ一覧</h2>
 <div class="panel panel-default">
 
     <div class="panel-body">
-        @for(category <- Category.find.all()) {
+        @for(category <- Category.find.where().ne("id", 1).findList() ) {
             <div class="tag">
-                @helper.form(routes.BoardController.search()) {
-                    <input type="hidden" name="category" value="@category.id">
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-tag"></span>
-                        @category.categoryName
-                    </button>
-                }
+                <a href="@routes.AdminController.deleteCategory(category.id)" class="btn btn-danger btn-xs control-label">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+                <a href="@routes.AdminController.viewEditCategory(category.id)" class="btn btn-primary btn-xs control-label">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+
+                <label class="control-label">@category.categoryName</label>
             </div>
         }
     </div>
 
     <div class="panel-footer">
-        @helper.form(routes.AdminController.newCategory(), 'class -> "form-horizontal") {
+        @helper.form(routes.AdminController.editCategory(), 'class -> "form-horizontal") {
+            <input type="hidden" name="@categoryForm("id").name" value="@editCategory.id">
             <div class="form-group">
                 <label class="col-sm-1 control-label">カテゴリ名</label>
                 <div class="col-sm-3">
-                    <input type="text" name="@categoryForm("categoryName").name" class="form-control" placeholder="カテゴリ名">
+                    <input type="text" name="@categoryForm("categoryName").name" class="form-control" placeholder="カテゴリ名" value="@editCategory.categoryName">
                 </div>
                 <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                    @if(flash.get("status") == "category") {
+                        <button type="submit" class="btn btn-primary control-label">変更</button>
+                    } else {
+                        <button type="submit" class="btn btn-primary control-label">追加</button>
+                    }
                 </div>
             </div>
         }
     </div>
 </div>
 
+}
 
 
 }

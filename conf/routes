@@ -53,8 +53,8 @@ POST    /admin/busho/new            controllers.AdminController.newBusho
 POST    /admin/busho/edit           controllers.AdminController.editBusho
 POST    /admin/busho/delete         controllers.AdminController.deleteBusho
 
-POST    /admin/category/new         controllers.AdminController.newCategory
+GET     /admin/category/edit/:id    controllers.AdminController.viewEditCategory(id: Integer)
 POST    /admin/category/edit        controllers.AdminController.editCategory
-POST    /admin/category/delete      controllers.AdminController.deleteCategory
+GET     /admin/category/delete      controllers.AdminController.deleteCategory(id: Integer)
 
 

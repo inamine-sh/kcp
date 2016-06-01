@@ -26,6 +26,7 @@ import com.avaje.ebean.SqlUpdate;
 
 import controllers.Secured.Admin;
 import models.Busho;
+import models.Card;
 import models.Category;
 import models.Kengen;
 import models.User;
@@ -57,7 +58,9 @@ public class AdminController extends Controller {
     public Result index() {
         init();
 
-        return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class)));
+        flash("status", "all");
+
+        return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class), new User(), new Busho(), new Category()));
     }
 
     public Result newUser() {
@@ -116,7 +119,17 @@ public class AdminController extends Controller {
     }
 
 
-    public Result newCategory() {
+    public Result viewEditCategory(int categoryId) {
+        init();
+
+        flash("status", "category");
+
+        Category category = Category.find.where().eq("id", categoryId).findUnique();
+
+        return ok(admin.render(formFactory.form(User.class), formFactory.form(Busho.class), formFactory.form(Category.class), new User(), new Busho(), category));
+    }
+
+    public Result editCategory() {
         init();
 
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
@@ -124,21 +137,30 @@ public class AdminController extends Controller {
 
         Category category = categoryForm.get();
 
-        category.save();
+        if(category.id == null) {
+            category.save();
+        } else {
+            category.update();
+        }
 
         return redirect(routes.AdminController.index());
     }
 
-    public Result editCategory() {
+    public Result deleteCategory(int categoryId) {
         init();
 
-        return TODO;
-    }
 
-    public Result deleteCategory() {
-        init();
+        List<Card> cards = Card.find.where().eq("category_id", categoryId).findList();
+        for(Card card: cards) {
+            card.category = Category.find.where().eq("id", 1).findUnique();
 
-        return TODO;
+            card.update();
+        }
+
+        Category category = Category.find.where().eq("id", categoryId).findUnique();
+        category.delete();
+
+        return redirect(routes.AdminController.index());
     }
 
 }
