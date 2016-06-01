@@ -1,14 +1,16 @@
-@(userForm: Form[User], bushoForm: Form[Busho], categoryForm: Form[Category])
+@(userForm: Form[User], bushoForm: Form[Busho], categoryForm: Form[Category], editUser: User, editBusho: Busho, editCategory: Category)
 
 @import helper._
 
 @head = {
 <style>
 .tag {
+    width: 200px;
     margin: 2px;
     display: inline-block;
 }
 </style>
+
 }
 
 @title = {管理ページ}
@@ -17,6 +19,8 @@
 
 <h1>@title</h1>
 
+
+@if(flash.get("status") == "all" || flash.get("status") == "user") {
 <h2>ユーザー一覧</h2>
 
 <div class="panel panel-default">
@@ -25,6 +29,7 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
+                    <th></th>
                     <th>ユーザーID</th>
                     <th>名前</th>
                     <th>読み仮名</th>
@@ -35,6 +40,11 @@
             <tbody>
                 @for(user <- User.find.all()) {
                     <tr>
+                        <td style="text-align: center;">
+                            <a href="@routes.AdminController.viewEditUser(user.id)" class="btn btn-primary btn-xs control-label">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                        </td>
                         <td>@user.userId</td>
                         <td><a href="@routes.UserController.index(user.userId)">@user.getName</a></td>
                         <td>@user.getYomiName</td>
@@ -44,50 +54,49 @@
                 }
             </tbody>
         </table>
-
-
     </div>
 
     <div class="panel-footer">
 
-        @helper.form(routes.AdminController.newUser(), 'class -> "form-horizontal") {
+        @helper.form(routes.AdminController.editUser(), 'class -> "form-horizontal") {
+            <input type="hidden" name="@userForm("id").name" value="@editUser.id">
             <div class="form-group">
                 <label class="col-sm-1 control-label">ID</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("userId").name" placeholder="ユーザーID" class="form-control">
+                    <input type="text" name="@userForm("userId").name" placeholder="ユーザーID" class="form-control" value="@editUser.userId">
                 </div>
                 <label class="col-sm-1 control-label">パスワード</label>
                 <div class="col-sm-2">
-                    <input type="password" name="@userForm("password").name" placeholder="パスワード" class="form-control">
+                    <input type="password" name="@userForm("password").name" placeholder="パスワード" class="form-control" value="@editUser.password">
                 </div>
             </div>
             <div class="form-group">
 
                 <label class="col-sm-1 control-label">姓</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("last").name" placeholder="姓" class="form-control">
+                    <input type="text" name="@userForm("last").name" placeholder="姓" class="form-control" value="@editUser.last">
                 </div>
                 <label class="col-sm-1 control-label">ミドル</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("middle").name" placeholder="ミドル" class="form-control">
+                    <input type="text" name="@userForm("middle").name" placeholder="ミドル" class="form-control" value="@editUser.middle">
                 </div>
                 <label class="col-sm-1 control-label">名</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("first").name" placeholder="名" class="form-control">
+                    <input type="text" name="@userForm("first").name" placeholder="名" class="form-control" value="@editUser.first">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">読み仮名(姓)</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("yomiLast").name" placeholder="読み仮名(姓)" class="form-control">
+                    <input type="text" name="@userForm("yomiLast").name" placeholder="読み仮名(姓)" class="form-control" value="@editUser.yomiLast">
                 </div>
                 <label class="col-sm-1 control-label">読み仮名(ミドル)</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("yomiMiddle").name" placeholder="読み仮名(ミドル)" class="form-control">
+                    <input type="text" name="@userForm("yomiMiddle").name" placeholder="読み仮名(ミドル)" class="form-control" value="@editUser.yomiMiddle">
                 </div>
                 <label class="col-sm-1 control-label">読み仮名(名)</label>
                 <div class="col-sm-2">
-                    <input type="text" name="@userForm("yomiFirst").name" placeholder="読み仮名(名)" class="form-control">
+                    <input type="text" name="@userForm("yomiFirst").name" placeholder="読み仮名(名)" class="form-control" value="@editUser.yomiFirst">
                 </div>
             </div>
 
@@ -96,7 +105,11 @@
                 <div class="col-sm-2">
                     <select name="@userForm("bushoId.id").name" class="select2 form-control">
                         @for(busho <- Busho.find.all()) {
-                            <option value="@busho.id">@busho.bushoName</option>
+                            @if(editUser.bushoId == busho) {
+                                <option value="@busho.id" selected>@busho.bushoName</option>
+                            } else {
+                                <option value="@busho.id">@busho.bushoName</option>
+                            }
                         }
                     </select>
                 </div>
@@ -107,7 +120,11 @@
                 <div class="col-sm-2">
                     <select name="@userForm("kengen.id").name" class="select2 form-control">
                         @for(kengen <- Kengen.find.all()) {
-                            <option value="@kengen.id">@kengen.kengenName</option>
+                            @if(editUser.kengen == kengen) {
+                                <option value="@kengen.id" selected>@kengen.kengenName</option>
+                            } else {
+                                <option value="@kengen.id">@kengen.kengenName</option>
+                            }
                         }
                     </select>
                 </div>
@@ -116,7 +133,11 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-1 text-right">
-                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                    @if(flash.get("status") == "user") {
+                        <button type="submit" class="btn btn-primary control-label">変更</button>
+                    } else {
+                        <button type="submit" class="btn btn-primary control-label">追加</button>
+                    }
                 </div>
 
             </div>
@@ -124,69 +145,90 @@
 
     </div>
 </div>
+}
 
+@if(flash.get("status") == "all" || flash.get("status") == "busho") {
 
 <h2>部署一覧</h2>
-
 <div class="panel panel-default">
 
     <div class="panel-body">
-        @for(busho <- Busho.find.all()) {
+        @for(busho <- Busho.find.where().ne("id", 1).findList() ) {
             <div class="tag">
-                @busho.bushoName
+                <a href="@routes.AdminController.deleteBusho(busho.id)" class="btn btn-danger btn-xs control-label">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+                <a href="@routes.AdminController.viewEditBusho(busho.id)" class="btn btn-primary btn-xs control-label">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+
+                <label class="control-label">@busho.bushoName</label>
             </div>
         }
     </div>
 
     <div class="panel-footer">
-        @helper.form(routes.AdminController.newBusho(), 'class -> "form-horizontal") {
+        @helper.form(routes.AdminController.editBusho(), 'class -> "form-horizontal") {
+            <input type="hidden" name="@bushoForm("id").name" value="@editBusho.id">
             <div class="form-group">
                 <label class="col-sm-1 control-label">部署名</label>
                 <div class="col-sm-3">
-                    <input type="text" name="@bushoForm("bushoName").name" class="form-control" placeholder="部署名">
+                    <input type="text" name="@bushoForm("bushoName").name" class="form-control" placeholder="部署名" value="@editBusho.bushoName">
                 </div>
                 <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                    @if(flash.get("status") == "busho") {
+                        <button type="submit" class="btn btn-primary control-label">変更</button>
+                    } else {
+                        <button type="submit" class="btn btn-primary control-label">追加</button>
+                    }
                 </div>
             </div>
         }
     </div>
-
 </div>
+}
 
+@if(flash.get("status") == "all" || flash.get("status") == "category") {
 
 <h2>カテゴリ一覧</h2>
 <div class="panel panel-default">
 
     <div class="panel-body">
-        @for(category <- Category.find.all()) {
+        @for(category <- Category.find.where().ne("id", 1).findList() ) {
             <div class="tag">
-                @helper.form(routes.BoardController.search()) {
-                    <input type="hidden" name="category" value="@category.id">
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-tag"></span>
-                        @category.categoryName
-                    </button>
-                }
+                <a href="@routes.AdminController.deleteCategory(category.id)" class="btn btn-danger btn-xs control-label">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+                <a href="@routes.AdminController.viewEditCategory(category.id)" class="btn btn-primary btn-xs control-label">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+
+                <label class="control-label">@category.categoryName</label>
             </div>
         }
     </div>
 
     <div class="panel-footer">
-        @helper.form(routes.AdminController.newCategory(), 'class -> "form-horizontal") {
+        @helper.form(routes.AdminController.editCategory(), 'class -> "form-horizontal") {
+            <input type="hidden" name="@categoryForm("id").name" value="@editCategory.id">
             <div class="form-group">
                 <label class="col-sm-1 control-label">カテゴリ名</label>
                 <div class="col-sm-3">
-                    <input type="text" name="@categoryForm("categoryName").name" class="form-control" placeholder="カテゴリ名">
+                    <input type="text" name="@categoryForm("categoryName").name" class="form-control" placeholder="カテゴリ名" value="@editCategory.categoryName">
                 </div>
                 <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary control-label">追加</button>
+                    @if(flash.get("status") == "category") {
+                        <button type="submit" class="btn btn-primary control-label">変更</button>
+                    } else {
+                        <button type="submit" class="btn btn-primary control-label">追加</button>
+                    }
                 </div>
             </div>
         }
     </div>
 </div>
 
+}
 
 
 }
