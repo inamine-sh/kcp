@@ -12,11 +12,11 @@
         <h2>検索</h2>
         <div class="panel panel-default">
             <div class="panel-body">
-                <p>すべてのカードから検索</p>
+                <p>すべてのカードから検索します</p>
 
                 <div class="clearfix" style="margin:1em 0em;">
                     <label class="control-label">誰から</label><br>
-                    <select class="form-control" name="fromuser">
+                    <select class="select2 form-control" name="fromuser">
                         <option value=""></option>
                         @for(user <- userList) {
                             <option value="@user.id"@if(user.id.toString == params.get("fromuser")){ selected}>@user.getName</option>
@@ -24,7 +24,7 @@
                     </select>
 
                     <label class="control-label">誰へ</label><br>
-                    <select class="form-control" name="touser">
+                    <select class="select2 form-control" name="touser">
                         <option value=""></option>
                         @for(user <- userList) {
                             <option value="@user.id"@if(user.id.toString == params.get("touser")){ selected}>@user.getName</option>
@@ -32,7 +32,7 @@
                     </select>
 
                     <label class="control-label">カテゴリ</label><br>
-                    <select class="form-control" name="category">
+                    <select class="select2 form-control" name="category">
                         <option value=""></option>
                         @for(category <- categoryList) {
                             <option value="@category.id"@if(category.id.toString == params.get("category")){ selected}>@category.categoryName</option>

@@ -94,7 +94,7 @@
             <div class="form-group">
                 <label class="col-sm-1 control-label">部署</label>
                 <div class="col-sm-2">
-                    <select name="@userForm("bushoId.id").name" class="form-control">
+                    <select name="@userForm("bushoId.id").name" class="select2 form-control">
                         @for(busho <- Busho.find.all()) {
                             <option value="@busho.id">@busho.bushoName</option>
                         }
@@ -105,7 +105,7 @@
 
                 <label class="col-sm-1 control-label">権限</label>
                 <div class="col-sm-2">
-                    <select name="@userForm("kengen.id").name" class="form-control">
+                    <select name="@userForm("kengen.id").name" class="select2 form-control">
                         @for(kengen <- Kengen.find.all()) {
                             <option value="@kengen.id">@kengen.kengenName</option>
                         }

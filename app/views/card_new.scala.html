@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">To</label>
                         <div class="col-sm-4">
-                            <select name="toUserId" class="form-control">
+                            <select name="toUserId" class="select2 form-control">
                                 @for(user <- User.find.where().findList() ) {
                                     <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
                                 }
@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">カテゴリ</label>
                         <div class="col-sm-4">
-                            <select name="categoryId" class="form-control">
+                            <select name="categoryId" class="select2 form-control">
                                 <option></option>
                                 @for(category <- Category.find.where().findList() ) {
                                     <option value="@category.id">@category.categoryName</option>
