@@ -68,7 +68,7 @@ public class CardController extends Controller {
             card1.message = params.get("message")[0];
 
             card1.save();
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         return redirect(routes.UserController.outbox(user.userId));
@@ -82,12 +82,18 @@ public class CardController extends Controller {
 
         Map<String, String[]> params = request().body().asFormUrlEncoded();
 
-        Comment comment = new Comment();
-        comment.card = Card.find.where().eq("id", id).findUnique();
-        comment.fromUser = User.find.where().eq("id", session("user_id")).findUnique();
-        comment.message = params.get("message")[0];
+        try {
+            Comment comment = new Comment();
+            comment.card = Card.find.where().eq("id", id).findUnique();
+            comment.fromUser = User.find.where().eq("id", session("user_id")).findUnique();
+            comment.message = params.get("message")[0];
 
-        comment.insert();
+            comment.insert();
+        }catch (Exception e){
+
+        }
+
+
 
         return redirect(routes.CardController.view(id));
     }
