@@ -89,6 +89,7 @@ public class AdminController extends Controller {
                 user.update();
             }
         } catch (Exception e) {
+            return badRequest(error.render());
         }
 
         return redirect(routes.AdminController.index());
@@ -127,6 +128,7 @@ public class AdminController extends Controller {
                 busho.update();
             }
         } catch (Exception e) {
+            return badRequest(error.render());
         }
 
         return redirect(routes.AdminController.index());
@@ -185,6 +187,7 @@ public class AdminController extends Controller {
                 category.update();
             }
         } catch (Exception e) {
+            return badRequest(error.render());
         }
 
         return redirect(routes.AdminController.index());

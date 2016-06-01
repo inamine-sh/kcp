@@ -51,14 +51,16 @@ public class CardController extends Controller {
     public Result editCard() {
         User user = User.find.where().eq("id", session("user_id")).findUnique();
 
+
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
-        params.put("fromUser.id", Integer.toString(user.id));
-        params.put("fromBusho.id", Integer.toString(user.bushoId.id));
-        params.put("toBusho.id", Integer.toString(User.find.where().eq("id", params.get("toUser.id")).findUnique().bushoId.id));
-
-        Form<Card> cardForm = formFactory.form(Card.class).bind(params);
-
         try {
+            params.put("fromUser.id", Integer.toString(user.id));
+            params.put("fromBusho.id", Integer.toString(user.bushoId.id));
+            params.put("toBusho.id", Integer.toString(User.find.where().eq("id", params.get("toUser.id")).findUnique().bushoId.id));
+
+            Form<Card> cardForm = formFactory.form(Card.class).bind(params);
+
+
             Card card = cardForm.get();
 
             if(card.id == null) {
@@ -70,6 +72,7 @@ public class CardController extends Controller {
             }
 
         } catch (Exception e) {
+            return badRequest(error.render());
         }
 
         return redirect(routes.UserController.outbox(user.userId));
@@ -87,7 +90,7 @@ public class CardController extends Controller {
 
             comment.insert();
         }catch (Exception e){
-
+            return badRequest(error.render());
         }
 
         return redirect(routes.CardController.view(id));
@@ -133,7 +136,7 @@ public class CardController extends Controller {
             }
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            return badRequest(error.render());
         }
 
         card1.update();
