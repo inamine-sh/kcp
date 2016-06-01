@@ -77,6 +77,19 @@ public class AdminController extends Controller {
         return redirect(routes.AdminController.index());
     }
 
+    public Result editUser() {
+        init();
+
+        return TODO;
+    }
+
+    public Result deleteUser() {
+        init();
+
+        return TODO;
+    }
+
+
     public Result newBusho() {
         init();
 
@@ -90,6 +103,19 @@ public class AdminController extends Controller {
         return redirect(routes.AdminController.index());
     }
 
+    public Result editBusho() {
+        init();
+
+        return TODO;
+    }
+
+    public Result deleteBusho() {
+        init();
+
+        return TODO;
+    }
+
+
     public Result newCategory() {
         init();
 
@@ -101,6 +127,18 @@ public class AdminController extends Controller {
         category.save();
 
         return redirect(routes.AdminController.index());
+    }
+
+    public Result editCategory() {
+        init();
+
+        return TODO;
+    }
+
+    public Result deleteCategory() {
+        init();
+
+        return TODO;
     }
 
 }
