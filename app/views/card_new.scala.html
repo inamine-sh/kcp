@@ -20,7 +20,9 @@
                         <div class="col-sm-4">
                             <select name="toUserId" class="select2 form-control">
                                 @for(user <- User.find.where().findList() ) {
-                                    <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
+                                    @if(user.id != session.get("user_id").toInt) {
+                                        <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
+                                    }
                                 }
                             </select>
                         </div>
