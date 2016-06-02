@@ -33,6 +33,10 @@ public class DatabaseController extends Controller {
      */
     public Result index() {
 
+        User user = User.find.where().eq("id", 1).findUnique();
+        if(user != null) return badRequest(error.render());
+
+
         String sql = "";
 
         try{

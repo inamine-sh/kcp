@@ -15,7 +15,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
-GET     /createdb                   controllers.DatabaseController.index
+GET     /init                       controllers.DatabaseController.index
 
 
 GET     /board                      controllers.BoardController.index
