@@ -90,7 +90,8 @@
     @if(daihyoList != null){
         <h2>掲載中</h2>
     }else{
-        <h2>検索結果</h2>
+        <h2 style="display:inline-block;">検索結果</h2>
+        <span>@cardList.length 件ヒットしました</span>
     }
 
     @if(cardList.length == 0) {
