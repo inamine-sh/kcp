@@ -1,4 +1,4 @@
-@(cardList: List[Card], userList: List[User], categoryList: List[Category], daihyoList: List[Card], params: Map[String, String] = null )
+@(cardList: List[Card], daihyoList: List[Card], params: Map[String, String] = null )
 
 @import helper._
 
@@ -20,7 +20,7 @@
                     <label class="control-label">誰から</label><br>
                     <select class="select2 form-control" name="fromuser">
                         <option value="">(未設定)</option>
-                        @for(user <- userList) {
+                        @for(user <- User.find.where().findList()) {
                             <option value="@user.id"@if(user.id.toString == params.get("fromuser")){ selected}>@user.getName (@user.bushoId.bushoName)</option>
                         }
                     </select>
@@ -28,15 +28,32 @@
                     <label class="control-label">誰へ</label><br>
                     <select class="select2 form-control" name="touser">
                         <option value="">(未設定)</option>
-                        @for(user <- userList) {
+                        @for(user <- User.find.where().findList()) {
                             <option value="@user.id"@if(user.id.toString == params.get("touser")){ selected}>@user.getName (@user.bushoId.bushoName)</option>
+                        }
+                    </select>
+
+
+                    <label class="control-label">部署から</label><br>
+                    <select class="select2 form-control" name="fromBusho">
+                        <option value="">(未設定)</option>
+                        @for(busho <- Busho.find.where().findList()) {
+                            <option value="@busho.id"@if(busho.id.toString == params.get("fromBusho")){ selected}>@busho.bushoName</option>
+                        }
+                    </select>
+
+                    <label class="control-label">部署へ</label><br>
+                    <select class="select2 form-control" name="toBusho">
+                        <option value="">(未設定)</option>
+                        @for(busho <- Busho.find.where().findList()) {
+                            <option value="@busho.id"@if(busho.id.toString == params.get("toBusho")){ selected}>@busho.bushoName</option>
                         }
                     </select>
 
                     <label class="control-label">カテゴリ</label><br>
                     <select class="select2 form-control" name="category">
                         <option value="">(未設定)</option>
-                        @for(category <- categoryList) {
+                        @for(category <- Category.find.where().findList()) {
                             <option value="@category.id"@if(category.id.toString == params.get("category")){ selected}>@category.categoryName</option>
                         }
                     </select>

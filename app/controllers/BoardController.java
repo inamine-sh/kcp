@@ -52,7 +52,7 @@ public class BoardController extends Controller{
         List <Card> card2 = dai.findList();
 
 
-        return ok(board.render(card,user,category,card2, new HashMap<String, String>()));
+        return ok(board.render(card, card2, new HashMap<String, String>()));
 
     }
 
@@ -61,15 +61,9 @@ public class BoardController extends Controller{
 
         List <Card> card2 = null;
 
-        List<User> user = User.find.all();
-        List<Category> categorys = Category.find.all();
-
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
 
         ExpressionList<Card> temp = Card.find.where();
-
-
-        System.out.println(params.toString());
 
         if (params.containsKey("fromuser")){
             User fromuser = User.find.where().eq("id", Integer.parseInt(params.get("fromuser"))).findUnique();
@@ -79,6 +73,17 @@ public class BoardController extends Controller{
             User touser = User.find.where().eq("id", Integer.parseInt(params.get("touser"))).findUnique();
             temp = temp.eq("toUser", touser);
         }
+
+        if (params.containsKey("fromBusho")){
+            Busho fromBusho = Busho.find.where().eq("id", Integer.parseInt(params.get("fromBusho"))).findUnique();
+            temp = temp.eq("fromBusho", fromBusho);
+        }
+
+        if (params.containsKey("toBusho")){
+            Busho toBusho = Busho.find.where().eq("id", Integer.parseInt(params.get("toBusho"))).findUnique();
+            temp = temp.eq("toBusho", toBusho);
+        }
+
         if (params.containsKey("category")){
             Category category = Category.find.where().eq("id", Integer.parseInt(params.get("category"))).findUnique();
             temp = temp.eq("category",category);
@@ -94,7 +99,7 @@ public class BoardController extends Controller{
 
         List <Card> card = temp.findList();
 
-        return ok(board.render(card, user, categorys, card2, params));
+        return ok(board.render(card, card2, params));
 
     }
 }
