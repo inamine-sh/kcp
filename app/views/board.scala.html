@@ -21,7 +21,7 @@
                     <select class="select2 form-control" name="fromuser">
                         <option value="">(未設定)</option>
                         @for(user <- userList) {
-                            <option value="@user.id"@if(user.id.toString == params.get("fromuser")){ selected}>@user.getName</option>
+                            <option value="@user.id"@if(user.id.toString == params.get("fromuser")){ selected}>@user.getName (@user.bushoId.bushoName)</option>
                         }
                     </select>
 
@@ -29,7 +29,7 @@
                     <select class="select2 form-control" name="touser">
                         <option value="">(未設定)</option>
                         @for(user <- userList) {
-                            <option value="@user.id"@if(user.id.toString == params.get("touser")){ selected}>@user.getName</option>
+                            <option value="@user.id"@if(user.id.toString == params.get("touser")){ selected}>@user.getName (@user.bushoId.bushoName)</option>
                         }
                     </select>
 
