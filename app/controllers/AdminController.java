@@ -13,6 +13,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,6 +80,7 @@ public class AdminController extends Controller {
         init();
 
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+        params.put("password", DigestUtils.md5Hex(params.get("password")));
         Form<User> userForm = formFactory.form(User.class).bind(params);
 
         try {

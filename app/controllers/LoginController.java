@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import models.User;
 import play.data.Form;
 import play.data.FormFactory;
@@ -24,7 +26,7 @@ public class LoginController extends Controller {
 
         User user = User.find.where().eq("userId", userId).findUnique();
 
-        if (user != null && user.password.equals(password)) {
+        if (user != null && user.password.equals(DigestUtils.md5Hex(password))) {
             session("user_id", Integer.toString(user.id));
             session("user_userId", user.userId);
             session("user_getName", user.getName());

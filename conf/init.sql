@@ -14,4 +14,4 @@ INSERT INTO Category VALUES(3, 'アドバイス');
 INSERT INTO Category VALUES(4, '代理');
 
 
-INSERT INTO User VALUES(1, 'admin','admin','スーパー','','ユーザー','すーぱー','','ゆーざー', '1', '3', '2016-01-01 00:00:00');
+INSERT INTO User VALUES(1, 'admin','21232f297a57a5a743894a0e4a801fc3','スーパー','','ユーザー','すーぱー','','ゆーざー', '1', '3', '2016-01-01 00:00:00');
