@@ -54,8 +54,16 @@ public class CardController extends Controller {
 
         Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
         try {
-            params.put("fromUser.id", Integer.toString(user.id));
-            params.put("fromBusho.id", Integer.toString(user.bushoId.id));
+            // 人事が編集するため必要
+            if(params.get("id") == null) { // 新規作成時
+                params.put("fromUser.id", Integer.toString(user.id));
+                params.put("fromBusho.id", Integer.toString(user.bushoId.id));
+            } else { // 編集時
+                User fromUser = User.find.where().eq("id", params.get("id")).findUnique();
+                params.put("fromUser.id", Integer.toString(fromUser.id));
+                params.put("fromBusho.id", Integer.toString(fromUser.bushoId.id));
+            }
+
             params.put("toBusho.id", Integer.toString(User.find.where().eq("id", params.get("toUser.id")).findUnique().bushoId.id));
 
             Form<Card> cardForm = formFactory.form(Card.class).bind(params);

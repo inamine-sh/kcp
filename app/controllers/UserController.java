@@ -23,18 +23,28 @@ public class UserController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
+
+    private void init() {
+        flash("menu", "user");
+    }
+
     public Result index(String userId) {
+        init();
 
         return inbox(userId);
     }
 
     public Result my() {
+        init();
+
         User loginUser = User.find.where().eq("id", session("user_id")).findUnique();
 
         return index(loginUser.userId);
     }
 
     public Result inbox(String userId) {
+        init();
+
         flash("submenu", "inbox");
 
         User viewUser  = User.find.where().eq("userId", userId).findUnique();
@@ -46,6 +56,8 @@ public class UserController extends Controller {
     }
 
     public Result outbox(String userId) {
+        init();
+
         flash("submenu", "outbox");
 
         User viewUser  = User.find.where().eq("userId", userId).findUnique();

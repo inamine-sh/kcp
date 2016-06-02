@@ -48,9 +48,10 @@
             <hr>
             <footer>
                 <div class="pull-left">
-                    @if(card.fromUser == user) {
+                    @if(card.fromUser == user || user.kengen.rank >= 2) {
                         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-card">
-                            <span class="glyphicon glyphicon-edit"></span>編集
+                            <span class="glyphicon glyphicon-edit"></span>
+                            編集
                         </a>
                     }
                     @if(card.category != null) {

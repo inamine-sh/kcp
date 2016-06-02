@@ -27,9 +27,14 @@
                         <div class="col-sm-4">
                             <select name="toUser.id" class="select2 form-control">
                                 @for(user <- User.find.where().findList() ) {
-                                    @* 自分以外のリストを表示 *@
-                                    @if(user.id != session.get("user_id").toInt) {
-                                        @if(user == card.toUser || user.id.toString == flash.get("viewUser")) {
+                                    @if(flash.get("menu") == "user") { @* 作成時 *@
+                                        @if(user.id.toString == flash.get("viewUser") && session.get("user_id") != flash.get("viewUser")) {
+                                            <option value="@user.id" selected>@user.getName (@user.bushoId.bushoName)</option>
+                                        } else {
+                                            <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
+                                        }
+                                    } else { @* 編集時 *@
+                                        @if(user == card.toUser) {
                                             <option value="@user.id" selected>@user.getName (@user.bushoId.bushoName)</option>
                                         } else {
                                             <option value="@user.id">@user.getName (@user.bushoId.bushoName)</option>
@@ -84,7 +89,10 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">送信</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-send"></span>
+                                送信
+                            </button>
                         </div>
                     </div>
 
