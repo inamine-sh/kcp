@@ -79,11 +79,11 @@ public class AdminController extends Controller {
     public Result editUser() {
         init();
 
-        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
-        params.put("password", DigestUtils.md5Hex(params.get("password")));
-        Form<User> userForm = formFactory.form(User.class).bind(params);
-
         try {
+            Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+            params.put("password", DigestUtils.md5Hex(params.get("password")));
+            Form<User> userForm = formFactory.form(User.class).bind(params);
+
             User user = userForm.get();
 
             if(user.id == null) {
@@ -119,10 +119,10 @@ public class AdminController extends Controller {
     public Result editBusho() {
         init();
 
-        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
-        Form<Busho> bushoForm = formFactory.form(Busho.class).bind(params);
-
         try {
+            Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+            Form<Busho> bushoForm = formFactory.form(Busho.class).bind(params);
+
             Busho busho = bushoForm.get();
 
             if(busho.id == null) {
@@ -178,10 +178,10 @@ public class AdminController extends Controller {
     public Result editCategory() {
         init();
 
-        Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
-        Form<Category> categoryForm = formFactory.form(Category.class).bind(params);
-
         try {
+            Map<String, String> params = Common.preparedParams( request().body().asFormUrlEncoded() );
+            Form<Category> categoryForm = formFactory.form(Category.class).bind(params);
+
             Category category = categoryForm.get();
 
             if(category.id == null) {
