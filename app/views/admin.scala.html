@@ -68,47 +68,47 @@ $(function(){
         @helper.form(routes.AdminController.editUser(), 'class -> "form-horizontal") {
             <input type="hidden" name="@userForm("id").name" value="@editUser.id">
             <div class="form-group">
-                <label class="col-sm-1 control-label">ID</label>
+                <label class="col-sm-2 control-label">ID *</label>
                 <div class="col-sm-2">
                     <input type="text" name="@userForm("userId").name" placeholder="ユーザーID" class="form-control" value="@editUser.userId">
                 </div>
-                <label class="col-sm-1 control-label">パスワード</label>
+                <label class="col-sm-2 control-label">パスワード *</label>
                 <div class="col-sm-2">
                     <input type="password" name="@userForm("password").name" placeholder="パスワード" class="form-control">
                 </div>
             </div>
             <div class="form-group">
 
-                <label class="col-sm-1 control-label">姓</label>
+                <label class="col-sm-2 control-label">姓 *</label>
                 <div class="col-sm-2">
                     <input type="text" name="@userForm("last").name" placeholder="姓" class="form-control" value="@editUser.last">
                 </div>
-                <label class="col-sm-1 control-label">ミドル</label>
+                <label class="col-sm-2 control-label">ミドル</label>
                 <div class="col-sm-2">
                     <input type="text" name="@userForm("middle").name" placeholder="ミドル" class="form-control" value="@editUser.middle">
                 </div>
-                <label class="col-sm-1 control-label">名</label>
+                <label class="col-sm-2 control-label">名 *</label>
                 <div class="col-sm-2">
                     <input type="text" name="@userForm("first").name" placeholder="名" class="form-control" value="@editUser.first">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 control-label">読み仮名(姓)</label>
+                <label class="col-sm-2 control-label">読み仮名(姓) *</label>
                 <div class="col-sm-2">
                     <input type="text" name="@userForm("yomiLast").name" placeholder="読み仮名(姓)" class="form-control" value="@editUser.yomiLast">
                 </div>
-                <label class="col-sm-1 control-label">読み仮名(ミドル)</label>
+                <label class="col-sm-2 control-label">読み仮名(ミドル)</label>
                 <div class="col-sm-2">
                     <input type="text" name="@userForm("yomiMiddle").name" placeholder="読み仮名(ミドル)" class="form-control" value="@editUser.yomiMiddle">
                 </div>
-                <label class="col-sm-1 control-label">読み仮名(名)</label>
+                <label class="col-sm-2 control-label">読み仮名(名) *</label>
                 <div class="col-sm-2">
                     <input type="text" name="@userForm("yomiFirst").name" placeholder="読み仮名(名)" class="form-control" value="@editUser.yomiFirst">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-1 control-label">部署</label>
+                <label class="col-sm-2 control-label">部署 *</label>
                 <div class="col-sm-2">
                     <select name="@userForm("bushoId.id").name" class="select2 form-control">
                         @for(busho <- Busho.find.all()) {
@@ -123,7 +123,7 @@ $(function(){
 
 
 
-                <label class="col-sm-1 control-label">権限</label>
+                <label class="col-sm-2 control-label">権限 *</label>
                 <div class="col-sm-2">
                     <select name="@userForm("kengen.id").name" class="select2 form-control">
                         @for(kengen <- Kengen.find.all()) {
@@ -139,7 +139,7 @@ $(function(){
 
             </div>
             <div class="form-group">
-                <div class="col-sm-1 text-right">
+                <div class="col-sm-offset-11 col-sm-1">
                     @if(flash.get("status") == "user") {
                         <button type="submit" class="btn btn-primary control-label">変更</button>
                     } else {
@@ -178,7 +178,7 @@ $(function(){
         @helper.form(routes.AdminController.editBusho(), 'class -> "form-horizontal") {
             <input type="hidden" name="@bushoForm("id").name" value="@editBusho.id">
             <div class="form-group">
-                <label class="col-sm-1 control-label">部署名</label>
+                <label class="col-sm-2 control-label">部署名 *</label>
                 <div class="col-sm-3">
                     <input type="text" name="@bushoForm("bushoName").name" class="form-control" placeholder="部署名" value="@editBusho.bushoName">
                 </div>
@@ -219,7 +219,7 @@ $(function(){
         @helper.form(routes.AdminController.editCategory(), 'class -> "form-horizontal") {
             <input type="hidden" name="@categoryForm("id").name" value="@editCategory.id">
             <div class="form-group">
-                <label class="col-sm-1 control-label">カテゴリ名</label>
+                <label class="col-sm-2 control-label">カテゴリ名 *</label>
                 <div class="col-sm-3">
                     <input type="text" name="@categoryForm("categoryName").name" class="form-control" placeholder="カテゴリ名" value="@editCategory.categoryName">
                 </div>
