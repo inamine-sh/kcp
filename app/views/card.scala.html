@@ -28,14 +28,14 @@
                         <div class="card-from">
                             <a href="@routes.UserController.index(card.fromUser.userId)" class="card-name btn btn-default btn-xs">
                                 <span class="glyphicon glyphicon-user"></span>
-                                @card.fromUser.getName
+                                @card.fromUser.getName (@card.fromUser.bushoId.bushoName)
                             </a>
                         </div>
                         <div class="glyphicon glyphicon-arrow-down"></div>
                         <div class="card-to">
                             <a href="@routes.UserController.index(card.toUser.userId)" class="card-name btn btn-default btn-xs">
                                 <span class="glyphicon glyphicon-user"></span>
-                                @card.toUser.getName
+                                @card.toUser.getName (@card.toUser.bushoId.bushoName)
                             </a>
                         </div>
                     </div>

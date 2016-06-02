@@ -14,31 +14,34 @@
                             @("%tF" format card.kanshaDate) の出来事
                         </div>
                     }
-                </div>
-                <div class="pull-right">
+
                     @if(card.category != null) {
-                        <div class="col-sm-6 text-center">
-                        @helper.form(routes.BoardController.search()) {
-                            <input type="hidden" name="category" value="@card.category.id">
-                            <button type="submit" class="btn btn-default btn-xs">
-                                <span class="glyphicon glyphicon-tag"></span>
-                                @card.category.categoryName
-                            </button>
-                        }
+                        <div>
+                            @helper.form(routes.BoardController.search()) {
+                                <input type="hidden" name="category" value="@card.category.id">
+                                <button type="submit" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-tag"></span>
+                                    @card.category.categoryName
+                                </button>
+                            }
                         </div>
                     }
-                    <div class="card-address col-sm-6 text-center">
+
+                </div>
+                <div class="pull-right">
+
+                    <div class="card-address text-center">
                         <div class="card-from">
                             <a href="@routes.UserController.index(card.fromUser.userId)" class="card-name btn btn-default btn-xs">
                                 <span class="glyphicon glyphicon-user"></span>
-                                @card.fromUser.getName
+                                @card.fromUser.getName (@card.fromUser.bushoId.bushoName)
                             </a>
                         </div>
                         <div class="glyphicon glyphicon-arrow-down"></div>
                         <div class="card-to">
                             <a href="@routes.UserController.index(card.toUser.userId)" class="card-name btn btn-default btn-xs">
                                 <span class="glyphicon glyphicon-user"></span>
-                                @card.toUser.getName
+                                @card.toUser.getName (@card.toUser.bushoId.bushoName)
                             </a>
                         </div>
                     </div>
