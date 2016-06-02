@@ -24,7 +24,7 @@
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">To</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-10">
                             <select name="toUser.id" class="select2 form-control">
                                 @for(user <- User.find.where().findList() ) {
                                     @if(flash.get("menu") == "user") { @* 作成時 *@
@@ -47,7 +47,7 @@
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">カテゴリ</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-10">
                             <select name="category.id" class="select2 form-control">
                                  @for(category <- Category.find.where().findList() ) {
                                     @if(category == card.category) {
