@@ -26,17 +26,17 @@ $(function(){
 @template(title.toString, head) {
 
 <div class="login">
-    <h1 class="pagetitle">ログインしてください</h1>
+    <h1 class="pagetitle">ログイン</h1>
 
     @form(routes.LoginController.login) {
-        <label for="userId">User ID</label>
-        <input type="text" id="userId" name="userId" class="form-control" placeholder="User ID" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <label for="userId">ユーザーID</label>
+        <input type="text" id="userId" name="userId" class="form-control" placeholder="ユーザーID" required autofocus>
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="パスワード" required>
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" id="remember" value="remember-me"> Remember me
+                <input type="checkbox" id="remember" value="remember-me"> ユーザーIDとパスワードを保存する
             </label>
         </div>
 
